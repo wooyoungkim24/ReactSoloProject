@@ -1,0 +1,18 @@
+1. Clone repo
+     * git clone git@github.com:wooyoungkim24/ReactSoloProject.git
+2. Install dependencies 
+     * npm install
+3. Create POSTGRESQL user with CREATEDB priveleges and a password
+     * CREATE USER auth_app WITH PASSWORD 'authpassword' CREATEDB
+4. Create .env file modeled off of .env.example 
+5. Enter in username and password in .env file
+6. Craete a JWT_SECRET variable in .env, as well as a port number
+7. Add proxy to package.json in the frontend directory
+     * "proxy": "http://localhost:5000"
+8. Create Database, migrate, and seed
+     * npx dotenv sequelize db:create
+     * npx dotenv sequelize db:migrate
+     * npx dotenv sequelize db:seed:all
+9. Start backend and frontend
+     * npm start <on both backend and frontend>
+10. Navigate to http://localhost:3000 and begin demoing
