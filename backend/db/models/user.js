@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [60, 60]
       }
+    },
+    businessOwner:{
+      type: DataTypes.BOOLEAN,
+      allowNull:false
     }
   },
   {
