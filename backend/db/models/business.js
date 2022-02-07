@@ -12,7 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     amenitiesId: DataTypes.INTEGER,
     phoneNumber: DataTypes.STRING,
     categories: DataTypes.ARRAY,
-    hours: DataTypes.ARRAY
+    hours: {
+      type: DataTypes.ARRAY,
+      validate: {
+        len: [7]
+      }
+    }
   }, {});
   Business.associate = function(models) {
     // associations can be defined here

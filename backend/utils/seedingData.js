@@ -11,6 +11,15 @@ export const descriptions ={
     "Rubirosa": "Rubirosa is located in the heart of Nolita and its clientele bridges the gap between the old and new neighborhood regulars. Rubirosa's homey and comfortable atmosphere welcomes every occasion, from family-style group dining to drinks and antipasti at our cozy bar.",
     "Jane Restaurant": "Perfectly positioned on the border of Greenwich Village and SoHo, Jane exists at the intersection of elevated and easygoing. Warmly welcoming locals and visitors to our casual, American bistro for nearly 20 years, we’ve got your brunch, lunch and dinner plans covered.",
     "Kimura": "Kimura is a Japanese restaurant specializing in motsunabe(a traditional japanese hotpot), a rich broth made of beef or pork intestines. Alongside the exclusive Japanese hot pot, Kimura also includes sushi, lunch 9-column box, wide selected Japanese beer and sake and traditional Japanese snacks. Kimura is a place where you can enjoy Shabu Shabu (Japanese hot pot), Sukiyaki, Mizutaki Nabe and authentic Japanese food in Manhattan NYC. We are looking forward to you!",
+    "Hangari Kalguksu": "Hangari Kalguksu is the destination for Korean comfort food. We specialize in kal-guk-su (hand cut noodle soup) and many other dishes including dumplings, bibimbap and our famous bossam. Our mission is to provide the highest quality food and service at a great value. It doesn't get any simpler than that. Tasty food, great service and value.",
+    "Republique": "République, located in Mid-City, is owned by Chefs Walter and Margarita Manzke. Centered in the heart of Los Angeles, the historic building in which it resides was originally erected in 1929 by Charlie Chaplin, and later transformed into the iconic La Brea Bakery and Campanile Restaurant. République builds on this storied past, offering a gastronomic environment imbued with history and grandeur. The space features a casual bakery, café, and bar in the front with a more formal dining area located in the rear, serving a French-inspired menu created daily by our chefs.",
+    "Eat This Cafe": "Established in 2012, Eat This Cafe has become a local favorite serving delectable brunches, artisanal sandwiches, specialty salads and daily bottomless mimosas.   We thrive in the hustle and bustle of Hollywood's Theatre Row, surrounded by studios, theaters, and sunshine, providing a relaxing respite from a busy day. We're all about adding a special touch to every dish, from our fresh baked bread delivered daily to our homemade potato chips. Whether you're stopping in for a work lunch or joining us for brunch while sightseeing, we look forward to welcoming you.",
+    "Stout Burgers & Beers": "At Stout, we aspire to serve the new-style burger: beef cooked medium rare, organic ground chicken, or a quinoa-based veggie option, dressed with a variety of homemade toppings such as onions cooked down to the sweetness of maple syrup, specialty cheeses, smoky bacon, arugula, and roasted tomatoes. It will be worth dropping in just for a mid-afternoon burger, and a craft beer.",
+
+
+
+
+
 
 
 
@@ -39,7 +48,16 @@ export const images ={
     "Rubirosa": ["https://s3-media0.fl.yelpcdn.com/bphoto/LuSzR8cpVQRofXOT_bMi1A/o.jpg", "https://s3-media0.fl.yelpcdn.com/bphoto/9rzzWu3iqGxC-liqLvWl0Q/o.jpg","https://s3-media0.fl.yelpcdn.com/bphoto/MMZHXZSfdyJEupS36k8r9A/o.jpg"],
     "Jane Restaurant": ["https://s3-media0.fl.yelpcdn.com/bphoto/J5TWsxXoC_N7KEk2Dp-CwQ/o.jpg", "https://s3-media0.fl.yelpcdn.com/bphoto/V1IX2qagRFLUGpDskPovHQ/o.jpg","https://s3-media0.fl.yelpcdn.com/bphoto/R1KdVT0EcugFsYITNfNcxg/o.jpg"],
     "Kimura": ["https://s3-media0.fl.yelpcdn.com/bphoto/bUz-DUnMgrY8UqGu3vDxBw/o.jpg","https://s3-media0.fl.yelpcdn.com/bphoto/YVJMqqrzTF6paN5nY3wETw/o.jpg","https://s3-media0.fl.yelpcdn.com/bphoto/h6bWjsY0EVA1F2lZuSJWbw/o.jpg"],
-    
+    "L'Antica Pizzeria Da Michele": ["https://s3-media0.fl.yelpcdn.com/bphoto/SCuuHjFSwNpuYxpncVDs9w/o.jpg", "https://s3-media0.fl.yelpcdn.com/bphoto/A4jM2azk3NrH9-n-zHyxow/o.jpg","https://s3-media0.fl.yelpcdn.com/bphoto/POA34WfBF7HEGGsxe85pBw/o.jpg"],
+    "Hangari Kalguksu": ["https://s3-media0.fl.yelpcdn.com/bphoto/X_U65O9YnvMyb42h1BZ0JQ/o.jpg", "https://s3-media0.fl.yelpcdn.com/bphoto/RrIv-PigRNU3yYA-L17J9g/o.jpg","https://s3-media0.fl.yelpcdn.com/bphoto/tHhlq0BeoJJcvZP7q_4t0A/o.jpg"],
+    "Republique": ["https://s3-media0.fl.yelpcdn.com/bphoto/Xy6oJ25E2QUzw_zsBD-dhA/o.jpg", "https://s3-media0.fl.yelpcdn.com/bphoto/yUNfbZeF88v_E0xnO1Neuw/o.jpg", "https://s3-media0.fl.yelpcdn.com/bphoto/xUE4XBtt2iU68s3hv1hXGw/o.jpg"],
+    "Eat This Cafe": ["https://s3-media0.fl.yelpcdn.com/bphoto/JnO3SLDimv-99ZAU1SN2ew/o.jpg", "https://s3-media0.fl.yelpcdn.com/bphoto/b7JduF39HdLDLWwmIwWnQQ/o.jpg","https://s3-media0.fl.yelpcdn.com/bphoto/UUsI98aDZDmMgT_dVRZisA/o.jpg"],
+    "Stout Burgers & Beers": ["https://s3-media0.fl.yelpcdn.com/bphoto/k2lUZAeuAgqvfkpS5FxT5Q/o.jpg", "https://s3-media0.fl.yelpcdn.com/bphoto/JNn4mga04qKjaVAtoxTWIw/o.jpg","https://s3-media0.fl.yelpcdn.com/bphoto/2P-RpKdIQFDgID-Ye942aQ/o.jpg"],
+
+
+
+
+
 
 
 

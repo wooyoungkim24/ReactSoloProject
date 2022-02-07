@@ -22,6 +22,7 @@ module.exports = {
       },
       hours:{
         type:Sequelize.ARRAY,
+        
       },
       description: {
         type: Sequelize.TEXT
