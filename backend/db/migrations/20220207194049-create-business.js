@@ -21,14 +21,13 @@ module.exports = {
         },
       },
       hours:{
-        type:Sequelize.ARRAY,
-        
+        type:Sequelize.ARRAY(Sequelize.TEXT),
+
       },
       description: {
         type: Sequelize.TEXT
       },
       webAddress: {
-        unique:true,
         type: Sequelize.STRING
       },
       address: {
@@ -45,7 +44,7 @@ module.exports = {
       },
       imgs: {
         allowNull: false,
-        type: Sequelize.ARRAY
+        type: Sequelize.ARRAY(Sequelize.TEXT)
       },
       amenitiesId: {
         allowNull: false,
@@ -57,7 +56,7 @@ module.exports = {
         },
       },
       categories:{
-        type: Sequelize.ARRAY
+        type: Sequelize.ARRAY(Sequelize.TEXT)
       },
       phoneNumber: {
         type: Sequelize.STRING

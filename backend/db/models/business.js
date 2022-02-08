@@ -15,7 +15,11 @@ module.exports = (sequelize, DataTypes) => {
     hours: {
       type: DataTypes.ARRAY,
       validate: {
-        len: [7]
+        hoursLength(value){
+          if(value.length !== 7){
+            throw new Error("Must have 7 hours for a week")
+          }
+        }
       }
     }
   }, {});
