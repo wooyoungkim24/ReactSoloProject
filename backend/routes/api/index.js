@@ -3,6 +3,7 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const businessRouter = require("./business.js")
 const reviewRouter = require("./review.js")
+const cityRouter = require("./city.js")
 const asyncHandler = require('express-async-handler');
 const { setTokenCookie } = require('../../utils/auth.js');
 const { User } = require('../../db/models');
@@ -13,6 +14,7 @@ router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/business',businessRouter)
 router.use('/review', reviewRouter)
+router.use('/city', cityRouter)
 // router.post('/test', (req, res) => {
 //   res.json({ requestBody: req.body });
 // });

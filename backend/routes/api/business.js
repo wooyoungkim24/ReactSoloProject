@@ -2,7 +2,7 @@ const express = require('express')
 const asyncHandler = require('express-async-handler');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const {Business, City} = require('../../db/models');
-const { route } = require('.');
+
 const router = express.Router();
 
 //Function for calculating distance between points
@@ -36,13 +36,46 @@ const pickLowest = (obj, num = 1) => {
     });
     return requiredObj;
 };
+
+
+const capitalize = (string) => {
+    const first = string.charAt(0).toUpperCase()
+    const rest = string.slice(1).toLowerCase();
+    return first+rest;
+}
+
+
 router.get(
-    "/",
+    "/:location",
     asyncHandler(async(req,res) =>{
+        const { Op } = require('sequelize');
+        const coordinates = req.params.location
+        const splitCoord = coordinates.split("/");
+
+        const latSplit = splitCoord[0];
+        const longSplit = splitCoord[1];
+
+        const lat = parseFloat(latSplit)
+        const long = parseFloat(longSplit)
+
         const businesses = await Business.findAll();
-        return res.json({
-            businesses
+        const businessLocations = {};
+        businesses.forEach(ele =>{
+            businessLocations[ele.id] =
+            getDistanceFromLatLonInKm(businessLocations.latitude, businessLocations.longitude, lat, long)
         })
+        const fiveClosest = pickLowest(businessLocations,5);
+
+        const keysClosest = Object.keys(fiveClosest);
+
+        const businessesClosest = await Business.findAll({where:{
+            id:{
+                [Op.in]: keysClosest
+            }
+        }})
+        return res.json(
+            businessesClosest
+        )
     })
 )
 
@@ -51,6 +84,7 @@ router.get(
     asyncHandler(async (req, res) => {
         const { Op } = require('sequelize');
         const city = req.params.city;
+        city = capitalize(city);
         const cityData = await City.findOne({where: {
             name: city
         }})
@@ -73,13 +107,18 @@ router.get(
                 [Op.in]: keysClosest
             }
         }})
-        return res.json({
-            businessesClosest
-        });
+        return res.json(businessesClosest);
     }),
 );
 
-
+router.get(
+    "/:id",
+    asyncHandler(async(req,res) =>{
+        const id = req.params.id;
+        const business = await Business.findByPk(id);
+        return res.json(business)
+    })
+)
 
 
 module.exports = router;
