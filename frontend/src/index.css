@@ -1,1 +1,15 @@
 /* TODO Add site wide styles */
+.navBar{
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.topSplash{
+    background-image: url("https://s3-media0.fl.yelpcdn.com/assets/srv0/yelp_large_assets/65e6a224ada4/assets/img/home/hero_photos/cz8iYo13MpBBGlFLlkA8Sw.jpg");
+    padding-top: 30px;
+    height: 570px;
+    /* background-color: #333; */
+    background-size: cover;
+    background-position: 50%;
+}
