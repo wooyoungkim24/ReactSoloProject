@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Amenity.associate = function(models) {
     // associations can be defined here
+    Amenity.hasOne(models.Business, {foreignKey: "amenitiesId"});
   };
   return Amenity;
 };
