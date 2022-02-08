@@ -1,7 +1,5 @@
 'use strict';
 
-const { default: reviewsReducer } = require("../../../frontend/src/store/review");
-
 module.exports = (sequelize, DataTypes) => {
   const City = sequelize.define('City', {
     name:{
@@ -19,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   City.associate = function(models) {
     // associations can be defined here
-    
+
   };
   return City;
 };

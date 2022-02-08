@@ -8,18 +8,19 @@ function RestaurantsPageCoordinates () {
     const dispatch = useDispatch();
     const {coordinates} = useParams();
 
-    const restaurantsValues = useSelector(state =>{
-        return Object.values(state.businesses.closeBusinesses);
-    })
-    const restaurantsKeys = useSelector(state =>{
-        return Object.keys(state.businesses.closeBusinesses);
+    const restaurants = useSelector(state =>{
+        return state.businesses.closeBusinesses;
     })
     const reviews = useSelector(state => {
         return state.reviews.closeReviews
     })
-
+    console.log(Object.keys(restaurants));
+    // const testRestaurants = useSelector(state=>{
+    //     return state.businesses.closeBusinesses
+    // })
+    // console.log(testRestaurants)
     useEffect(() =>{
-        dispatch(getReviews(restaurantsKeys))
+        dispatch(getReviews(Object.keys(restaurants)))
     }, [dispatch])
 
 
@@ -29,18 +30,27 @@ function RestaurantsPageCoordinates () {
     return (
         <div className="restaurants">
             <ol>
-                {restaurantsValues.map((restaurant) => {
+                {Object.values(restaurants).map((restaurant) => {
                     const bid = restaurant.id
-                    const arrayReviews = [];
-                    for(const businessId in reviews){
-                        if(businessId === bid){
-                            arrayReviews.push(reviews[businessId])
-                        }
-                    }
+                    const reviewList = reviews[bid]
+                    const reviewListRatings = []
+                    reviewList.forEach(ele=>{
+                        reviewListRatings.push(ele.rating)
+                    })
+                    // console.log('rating list', reviewListRatings)
+                    let sum = reviewListRatings.reduce((ele, accum) =>{
+                        return ele+accum;
+                    })
+                    let ratingAvg = sum/reviewListRatings.length
+                    // console.log('testing stuff', ratingAvg, sum)
                     return (
-                        <li className="restaurant-component">
-                            <h2>{restaurant.name}</h2>
-
+                        <li key = {bid} className="restaurant-component">
+                            <div>
+                               <h2>{restaurant.title}</h2>
+                                <div className="avgRating">
+                                    Average Rating: {ratingAvg} Number of Reviews: {reviewListRatings.length}
+                                </div>
+                            </div>
                         </li>
                     )
                 })}

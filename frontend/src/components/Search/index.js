@@ -56,7 +56,7 @@ function Search() {
                 <form className = "formSearchBar" onSubmit={handleSubmit1}>
                     <input
                      type = "search"
-                     placeholder = "latitude/longitude"
+                     placeholder = "latitude_longitude"
                      required
                      value = {coordinates}
                      onChange = {updateCoordinates}

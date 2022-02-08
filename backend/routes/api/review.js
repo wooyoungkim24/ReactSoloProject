@@ -14,14 +14,16 @@ router.get(
         const { Op } = require('sequelize');
         const ids = req.params.businessIds;
         const split = ids.split("_");
-        split.map(ele=>{
+        const splitNum = split.map(ele=>{
             return parseInt(ele)
         })
+        // console.log('test',typeof split[0])
         const reviews = await Review.findAll({where:{
             businessId: {
-                [Op.in]:split
+                [Op.in]:splitNum
             }
         }});
+        // console.log('this is the test',reviews)
         return res.json({
             reviews
         })
