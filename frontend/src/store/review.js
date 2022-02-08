@@ -22,14 +22,14 @@ const load_one = one => ({
 
 
 
-// export const getReviews = (id) => async dispatch =>{
-//     const idJoin = id.join("_")
-//     const res = await csrfFetch(`/api/review/${idJoin}`);
-//     if(res.ok){
-//         const reviews = await res.json();
-//         dispatch(load(reviews))
-//     }
-// }
+export const getReviews = (id) => async dispatch =>{
+    const idJoin = id.join("_")
+    const res = await csrfFetch(`/api/review/${idJoin}`);
+    if(res.ok){
+        const reviews = await res.json();
+        dispatch(load(reviews))
+    }
+}
 
 const initialState = {
     single: {},
@@ -65,4 +65,4 @@ const reviewsReducer = (state = initialState, action) => {
 }
 
 
-// export default reviewsReducer;
+export default reviewsReducer;
