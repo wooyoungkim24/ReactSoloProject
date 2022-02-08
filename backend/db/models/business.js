@@ -8,12 +8,12 @@ module.exports = (sequelize, DataTypes) => {
     address: DataTypes.STRING,
     latitude: DataTypes.DECIMAL,
     longitude: DataTypes.DECIMAL,
-    imgs: DataTypes.ARRAY,
+    imgs: DataTypes.ARRAY(DataTypes.TEXT),
     amenitiesId: DataTypes.INTEGER,
     phoneNumber: DataTypes.STRING,
-    categories: DataTypes.ARRAY,
+    categories: DataTypes.ARRAY(DataTypes.TEXT),
     hours: {
-      type: DataTypes.ARRAY,
+      type: DataTypes.ARRAY(DataTypes.TEXT),
       validate: {
         hoursLength(value){
           if(value.length !== 7){
