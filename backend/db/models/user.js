@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = function(models) {
     // associations can be defined here
-    User.hasOne(models.Business, {foreignKey: "ownerId"})
+    User.hasMany(models.Business, {foreignKey: "ownerId"})
     User.hasMany(models.Review, {foreignKey: "userId"})
   };
 
@@ -75,6 +75,7 @@ module.exports = (sequelize, DataTypes) => {
 
   User.login = async function ({ credential, password }) {
     const { Op } = require('sequelize');
+
     const user = await User.scope('loginUser').findOne({
       where: {
         [Op.or]: {
@@ -83,6 +84,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     });
+    
     if (user && user.validatePassword(password)) {
       return await User.scope('currentUser').findByPk(user.id);
     }
