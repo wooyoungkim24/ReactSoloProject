@@ -13,6 +13,7 @@ router.get(
     asyncHandler(async(req,res) =>{
         const { Op } = require('sequelize');
         const ids = req.params.businessIds;
+        console.log('these are my ids',ids)
         const split = ids.split("_");
         const splitNum = split.map(ele=>{
             return parseInt(ele)

@@ -28,15 +28,15 @@ function App() {
         <LoginFormPage />
       </Route>
 
-       <Route path= "/restaurants/coordinates/:coordinates">
+       <Route exact path= "/restaurants/coordinates/:coordinates">
         <RestaurantsPageCoordinates/>
       </Route>
 
-      <Route path ="/restaurants/location/:location">
+      <Route exact path ="/restaurants/location/:location">
         <RestaurantsPageLocation/>
       </Route>
 
-      <Route path="/restaurants/:id">
+      <Route exact path="/restaurants/single/:id">
         <RestaurantSpecific/>
       </Route>
 
