@@ -36,6 +36,7 @@ function RestaurantsPageCoordinates() {
     // })
     // console.log(testRestaurants)
     useEffect(() =>{
+        dispatch(sessionActions.restoreUser())
         dispatch(getBusinessesLocation(coordinates)).then(() => setIsBusinessLoaded(true));
     },[dispatch])
 

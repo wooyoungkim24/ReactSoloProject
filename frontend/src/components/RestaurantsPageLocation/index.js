@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, useHistory, useParams } from 'react-router-dom';
-
+import * as sessionActions from "../../store/session";
 import { getReviews } from "../../store/review"
 import { getBusinessesLocation, getCities, getBusinessesCity } from "../../store/business"
 
@@ -25,6 +25,7 @@ function RestaurantsPageLocation() {
     }
 
     useEffect(() => {
+        dispatch(sessionActions.restoreUser())
         dispatch(getBusinessesCity(location)).then(() => setIsBusinessLoaded(true));
     }, [dispatch])
 
