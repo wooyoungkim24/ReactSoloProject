@@ -48,23 +48,24 @@ const AutoComplete = ({ names }) => {
   }
 
   const submit = async () => {
-    const payload = {
-      inputVal
-    };
-
-    let foundBusinesses;
-    // try {
-    foundBusinesses = await dispatch(getBusinessesCity(payload));
+    // const payload = {
+    //   city:inputVal
+    // };
+    // console.log('this is the payload',payload)
+    // let foundBusinesses;
+    // // try {
+    // foundBusinesses = await dispatch(getBusinessesCity(payload));
     // } catch (error) {
     //   if (error instanceof ValidationError) setErrorMessages(error.errors);
     //   // If error is not a ValidationError, add slice at the end to remove extra
     //   // "Error: "
     //   else setErrorMessages({ overall: error.toString().slice(7) })
     // }
-    if (foundBusinesses) {
+    // console.log('founded', foundBusinesses)
+    // if (foundBusinesses) {
       //   setErrorMessages({});
-      history.push(`/restaurants/${inputVal}`);
-    }
+      history.push(`/restaurants/location/${inputVal}`);
+    // }
   };
   const matchesFunc = () => {
     const inputLength = inputVal.length;

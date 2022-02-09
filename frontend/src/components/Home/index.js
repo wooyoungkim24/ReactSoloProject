@@ -7,7 +7,7 @@ import Navigation from "../../components/Navigation";
 import { NavLink } from 'react-router-dom';
 import { Route, Switch } from "react-router-dom";
 import Search from '../Search'
-
+import { clearBusinesses } from "../../store/business";
 
 
 
@@ -15,7 +15,9 @@ function Home() {
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
     useEffect(() => {
+
         dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+        dispatch(clearBusinesses)
     }, [dispatch]);
 
 

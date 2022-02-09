@@ -29,23 +29,23 @@ function Search() {
     const handleSubmit1 = async (e) => {
         e.preventDefault();
 
-        const payload = {
-          coordinates
-        };
+        // const payload = {
+        //   coordinates
+        // };
 
-        let foundBusinesses;
-        // try {
-          foundBusinesses = await dispatch(getBusinessesLocation(payload));
+        // let foundBusinesses;
+        // // try {
+        //   foundBusinesses = await dispatch(getBusinessesLocation(payload));
         // } catch (error) {
         //   if (error instanceof ValidationError) setErrorMessages(error.errors);
         //   // If error is not a ValidationError, add slice at the end to remove extra
         //   // "Error: "
         //   else setErrorMessages({ overall: error.toString().slice(7) })
         // }
-        if (foundBusinesses) {
+        // if (foundBusinesses) {
         //   setErrorMessages({});
-          history.push(`/restaurants/${coordinates}`);
-        }
+          history.push(`/restaurants/coordinates/${coordinates}`);
+        // }
       };
 
 

@@ -40,9 +40,15 @@ const pickLowest = (obj, num = 1) => {
 
 
 const capitalize = (string) => {
-    const first = string.charAt(0).toUpperCase()
-    const rest = string.slice(1).toLowerCase();
-    return first+rest;
+    const words = string.split(" ");
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i][0].toUpperCase() + words[i].substr(1).toLowerCase();
+    }
+    return words.join(" ");
+
+    // const first = string.charAt(0).toUpperCase()
+    // const rest = string.slice(1).toLowerCase();
+    // return first+rest;
 }
 
 
@@ -51,8 +57,16 @@ router.get(
     asyncHandler(async(req,res) =>{
         const { Op } = require('sequelize');
         const coordinates = req.params.location
-        const splitCoord = coordinates.split("_");
 
+        const test = /^\d+\.\d+_\d+\.\d+$/.test(coordinates)
+        if(!test){
+            throw new Error("Coordinates not formatted properly: 12.345_67.899")
+            // return res.json({
+            //     error: "Coordinates not formatted properly: 12.345_67.899"
+            // })
+        }
+
+        const splitCoord = coordinates.split("_");
         const latSplit = splitCoord[0];
         const longSplit = splitCoord[1];
 
@@ -75,6 +89,7 @@ router.get(
                 [Op.in]: keysClosest
             }
         }})
+        // console.log('lasttest', businessesClosest)
         return res.json(
             businessesClosest
         )
@@ -85,8 +100,10 @@ router.get(
     `/location/:city`,
     asyncHandler(async (req, res) => {
         const { Op } = require('sequelize');
-        const city = req.params.city;
+        let city = req.params.city;
+        // console.log('this is city', city)
         city = capitalize(city);
+        console.log('this is city', city)
         const cityData = await City.findOne({where: {
             name: city
         }})
@@ -100,6 +117,7 @@ router.get(
             const distance = getDistanceFromLatLonInKm(latTarget,longTarget,latFocus,longFocus)
             distances[ele.id] = distance;
         })
+        // console.log('distances', distances)
         const fiveClosest = pickLowest(distances,5);
 
         const keysClosest = Object.keys(fiveClosest);
@@ -109,6 +127,7 @@ router.get(
                 [Op.in]: keysClosest
             }
         }})
+        // console.log("closest",businessesClosest)
         return res.json(businessesClosest);
     }),
 );
