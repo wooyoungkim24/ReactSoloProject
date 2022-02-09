@@ -9,6 +9,8 @@ import { NavLink } from 'react-router-dom';
 import LoginFormPage from './components/LoginFormModal/LoginFormPage';
 import Home from  "./components/Home"
 import RestaurantsPageCoordinates from "./components/RestaurantsPageCoordinates";
+import RestaurantsPageLocation from "./components/RestaurantsPageLocation";
+import RestaurantSpecific from "./components/RestaurantSpecific";
 
 function App() {
 
@@ -26,15 +28,19 @@ function App() {
         <LoginFormPage />
       </Route>
 
-       <Route path= "/restaurants/:coordinates">
+       <Route path= "/restaurants/coordinates/:coordinates">
         <RestaurantsPageCoordinates/>
       </Route>
 
-      {/* <Route path="/restaurants/:id">
+      <Route path ="/restaurants/location/:location">
+        <RestaurantsPageLocation/>
+      </Route>
+
+      <Route path="/restaurants/:id">
         <RestaurantSpecific/>
       </Route>
 
-      <Route path="/review">
+      {/* <Route path="/review">
         <ReviewFormPage/>
       </Route> */}
     </>

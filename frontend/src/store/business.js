@@ -3,7 +3,7 @@ import { csrfFetch } from './csrf';
 const LOADMULTI = 'closeBusinesses/LOAD';
 const LOAD_ONE = 'one/LOAD'
 const CITIES_LOAD = 'cites/load'
-
+const CLEAR = 'businesses/clear'
 
 const load_city = (cities) => ({
     type: CITIES_LOAD,
@@ -19,6 +19,13 @@ const load_one = one =>({
     type: LOAD_ONE,
     one
 })
+
+const clear = () =>({
+    type: CLEAR
+})
+
+export const clearBusinesses = clear();
+
 
 export const getCities = () => async dispatch =>{
     const res = await csrfFetch('/api/city');
@@ -38,22 +45,31 @@ export const getBusiness = (id) => async dispatch =>{
     }
 }
 
-export const getBusinessesLocation = ({coordinates}) => async dispatch => {
+export const getBusinessesLocation = (coordinates) => async dispatch => {
     // console.log('testingcoord', coordinates)
-    const response = await csrfFetch(`/api/business/coordinates/${coordinates}`);
+    try{
+        const response = await csrfFetch(`/api/business/coordinates/${coordinates}`);
+        // console.log('this is',await response.json())
+        if (response.ok) {
 
-    if (response.ok) {
-        const close = await response.json();
-        dispatch(load(close));
-        return close;
+            const close = await response.json();
+            dispatch(load(close));
+            return close;
+        }
+    }catch(e){
+        // console.log('error finder',e)
+        throw (e)
     }
+
 };
-export const getBusinessesCity = ({city}) => async dispatch => {
+export const getBusinessesCity = (city) => async dispatch => {
     const response = await csrfFetch(`/api/business/location/${city}`);
 
     if (response.ok) {
         const close = await response.json();
+        console.log('close', close)
         dispatch(load(close));
+        return close;
     }
 };
 
@@ -83,6 +99,10 @@ const businessReducer = (state = initialState, action) =>{
             return{
                 ...state,
                 cities: action.cities
+            }
+        case CLEAR:
+            return {
+                ...initialState
             }
         default:
             return state;

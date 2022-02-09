@@ -1,43 +1,32 @@
-
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, useHistory, useParams } from 'react-router-dom';
+
 import { getReviews } from "../../store/review"
-import * as sessionActions from "../../store/session";
-import {getBusinessesLocation, getCities, getBusinessesCity} from "../../store/business"
+import { getBusinessesLocation, getCities, getBusinessesCity } from "../../store/business"
 
-// import { restoreUser } from '../../store/session';
-
-function RestaurantsPageCoordinates() {
+function RestaurantsPageLocation() {
     const dispatch = useDispatch();
-    const {coordinates}  = useParams();
-    console.log('my coordinates', coordinates)
+    const history = useHistory();
+    // console.log(useParams())
+    // console.log('my coordinates', coordinates)
+    const { location } = useParams();
+    console.log('location', location)
     const [isLoaded, setIsLoaded] = useState(false);
     const [isBusinessLoaded, setIsBusinessLoaded] = useState(false);
-    // const [isReview, setIsReview] = useState(false);
-    // const [isBusiness, setIsBusiness] = useState(false);
-    // const [isSession, setIsSession] = useState(false);
-    // const [restaurants, setRestaurants] = useState({})
-    // const [reviews, setReviews] = useState({})
-
     const restaurants = useSelector(state => {
         return state.businesses.closeBusinesses;
     })
     const reviews = useSelector(state => {
         return state.reviews.closeReviews
     })
-    const history = useHistory();
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
 
-    // setReviews(reviewsSelector)
-    // setRestaurants(restaurantsSelector)
-
-    // const testRestaurants = useSelector(state=>{
-    //     return state.businesses.closeBusinesses
-    // })
-    // console.log(testRestaurants)
-    useEffect(() =>{
-        dispatch(getBusinessesLocation(coordinates)).then(() => setIsBusinessLoaded(true));
-    },[dispatch])
+    useEffect(() => {
+        dispatch(getBusinessesCity(location)).then(() => setIsBusinessLoaded(true));
+    }, [dispatch])
 
     useEffect(() => {
         // console.log('my coordinates', coordinates)
@@ -45,18 +34,7 @@ function RestaurantsPageCoordinates() {
         dispatch(getReviews(Object.keys(restaurants))).then(() => setIsLoaded(true))
     }, [dispatch, isBusinessLoaded])
 
-    function getRandomInt(max) {
-      return Math.floor(Math.random() * max);
-    }
-
-    const handleClick = (id) =>{
-        history.push(`/restaurants/${id}`);
-    }
-
-
-
     return (
-
         <div className="restaurants">
             {isLoaded &&
                 <ol>
@@ -135,13 +113,13 @@ function RestaurantsPageCoordinates() {
                                     </>
                                 )
                             }
-                        }else{
+                        } else {
 
                             let today = d.getDay();
                             let nextOpen;
-                            for(let i = today; i < weekday.length; i ++){
+                            for (let i = today; i < weekday.length; i++) {
                                 const currDay = weekday[i]
-                                if(hours[currDay]!== "Closed"){
+                                if (hours[currDay] !== "Closed") {
                                     nextOpen = currDay;
                                     break;
                                 }
@@ -149,17 +127,17 @@ function RestaurantsPageCoordinates() {
                             const openTime = hours[nextOpen].split(" - ")[0];
                             currOpen = (
                                 <>
-                                Closed for Today. Opens {nextOpen} at {openTime}.
+                                    Closed for Today. Opens {nextOpen} at {openTime}.
                                 </>
                             )
                         }
                         const chooseReview = getRandomInt(reviewList.length)
                         const chosenReview = reviewList[chooseReview]
-                        console.log('chosen review',chosenReview)
+                        console.log('chosen review', chosenReview)
 
                         // console.log('testing stuff', openTimeHour,openTimeMinute)
                         return (
-                            <li key={bid}  className="restaurant-component">
+                            <li key={bid} className="restaurant-component">
                                 <div onClick ={() => history.push(`/restaurants/${restaurant.id}`)}>
                                     <h2>{restaurant.title}</h2>
                                     <div className="avgRating">
@@ -173,7 +151,7 @@ function RestaurantsPageCoordinates() {
                                     <div className="hours">
                                         {currOpen}
                                     </div>
-                                    <div className = "reviewComponent">
+                                    <div className="reviewComponent">
                                         {chosenReview.reviewText}
                                     </div>
                                 </div>
@@ -184,10 +162,8 @@ function RestaurantsPageCoordinates() {
 
         </div>
     )
-
 }
 
 
 
-
-export default RestaurantsPageCoordinates;
+export default RestaurantsPageLocation;
