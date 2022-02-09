@@ -31,6 +31,7 @@ export const getReviews = (id) => async dispatch =>{
         console.log('my reviews',reviews['reviews'])
         // console.log(reviews['reviews'])
         dispatch(load(reviews['reviews']))
+        return reviews;
     }
 }
 
