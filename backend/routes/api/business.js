@@ -19,6 +19,7 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
     var d = R * c; // Distance in km
     return d;
 }
+// console.log(getDistanceFromLatLonInKm(41.8781,87.6298,34.0994837,118.329268))
 
 function deg2rad(deg) {
     return deg * (Math.PI / 180)
@@ -46,26 +47,27 @@ const capitalize = (string) => {
 
 
 router.get(
-    "/:location",
+    "/coordinates/:location",
     asyncHandler(async(req,res) =>{
         const { Op } = require('sequelize');
         const coordinates = req.params.location
-        const splitCoord = coordinates.split("/");
+        const splitCoord = coordinates.split("_");
 
         const latSplit = splitCoord[0];
         const longSplit = splitCoord[1];
 
         const lat = parseFloat(latSplit)
         const long = parseFloat(longSplit)
-
+        // console.log('coords', typeof lat, typeof long)
         const businesses = await Business.findAll();
         const businessLocations = {};
         businesses.forEach(ele =>{
-            businessLocations[ele.id] =
-            getDistanceFromLatLonInKm(businessLocations.latitude, businessLocations.longitude, lat, long)
+            // console.log(parseFloat(ele.latitude))
+            businessLocations[ele.id] = getDistanceFromLatLonInKm(parseFloat(ele.latitude), parseFloat(ele.longitude), lat, long)
         })
-        const fiveClosest = pickLowest(businessLocations,5);
 
+        const fiveClosest = pickLowest(businessLocations,5);
+        // console.log(businessLocations)
         const keysClosest = Object.keys(fiveClosest);
 
         const businessesClosest = await Business.findAll({where:{
@@ -80,7 +82,7 @@ router.get(
 )
 
 router.get(
-    `/:city`,
+    `/location/:city`,
     asyncHandler(async (req, res) => {
         const { Op } = require('sequelize');
         const city = req.params.city;
@@ -93,8 +95,8 @@ router.get(
         const businesses = await Business.findAll();
         const distances = {};
         businesses.forEach(ele =>{
-            const latFocus = ele.latitude;
-            const longFocus = ele.longitude;
+            const latFocus = parseFloat(ele.latitude);
+            const longFocus = parseFloat(ele.longitude);
             const distance = getDistanceFromLatLonInKm(latTarget,longTarget,latFocus,longFocus)
             distances[ele.id] = distance;
         })

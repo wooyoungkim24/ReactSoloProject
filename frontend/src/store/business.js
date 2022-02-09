@@ -39,16 +39,17 @@ export const getBusiness = (id) => async dispatch =>{
 }
 
 export const getBusinessesLocation = ({coordinates}) => async dispatch => {
-    const response = await csrfFetch(`/api/business/${coordinates}`);
+    // console.log('testingcoord', coordinates)
+    const response = await csrfFetch(`/api/business/coordinates/${coordinates}`);
 
     if (response.ok) {
         const close = await response.json();
         dispatch(load(close));
-
+        return close;
     }
 };
 export const getBusinessesCity = ({city}) => async dispatch => {
-    const response = await csrfFetch(`/api/business/${city}`);
+    const response = await csrfFetch(`/api/business/location/${city}`);
 
     if (response.ok) {
         const close = await response.json();
@@ -57,6 +58,7 @@ export const getBusinessesCity = ({city}) => async dispatch => {
 };
 
 const initialState = {
+    closeBusinesses: {},
     single: {},
     cities: []
 }
@@ -70,7 +72,7 @@ const businessReducer = (state = initialState, action) =>{
             });
             return {
                 ...state,
-                ...closeBusinesses
+                closeBusinesses: {...closeBusinesses}
             }
         case LOAD_ONE:
             return{

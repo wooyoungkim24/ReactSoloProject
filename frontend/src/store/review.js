@@ -22,18 +22,22 @@ const load_one = one => ({
 
 
 
-// export const getReviews = (id) => async dispatch =>{
-//     const idJoin = id.join("_")
-//     const res = await csrfFetch(`/api/review/${idJoin}`);
-//     if(res.ok){
-//         const reviews = await res.json();
-//         dispatch(load(reviews))
-//     }
-// }
+export const getReviews = (id) => async dispatch =>{
+    const idJoin = id.join("_")
+    // console.log(idJoin)
+    const res = await csrfFetch(`/api/review/${idJoin}`);
+    if(res.ok){
+        const reviews = await res.json();
+        console.log('my reviews',reviews['reviews'])
+        // console.log(reviews['reviews'])
+        dispatch(load(reviews['reviews']))
+        return reviews;
+    }
+}
 
 const initialState = {
     single: {},
-    closeReviewsTotal: {}
+    closeReviews: {}
 }
 const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -41,12 +45,16 @@ const reviewsReducer = (state = initialState, action) => {
             const closeReviews = {};
 
             action.close.forEach(ele => {
+                if(!closeReviews[ele.businessId]){
+                   closeReviews[ele.businessId] = [ele];
+                }else{
+                    closeReviews[ele.businessId].push(ele)
+                }
 
-                closeReviews[ele.businessId] = ele;
             });
             return {
                 ...state,
-                ...closeReviews
+                closeReviews: {...closeReviews}
             }
         // case LOAD_ONE:
         //     return{
@@ -65,4 +73,4 @@ const reviewsReducer = (state = initialState, action) => {
 }
 
 
-// export default reviewsReducer;
+export default reviewsReducer;

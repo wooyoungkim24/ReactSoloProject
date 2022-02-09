@@ -14,7 +14,7 @@ import AutoComplete from "../AutoComplete";
 
 function Search() {
     const dispatch = useDispatch();
-    const [isLoaded, setIsLoaded] = useState(false);
+    
     // const [errorMessages, setErrorMessages] = useState({});
     const [coordinates, setCoordinates] = useState("");
     const [cities, setCities] = useState([]);
@@ -56,7 +56,7 @@ function Search() {
                 <form className = "formSearchBar" onSubmit={handleSubmit1}>
                     <input
                      type = "search"
-                     placeholder = "latitude/longitude"
+                     placeholder = "latitude_longitude"
                      required
                      value = {coordinates}
                      onChange = {updateCoordinates}
