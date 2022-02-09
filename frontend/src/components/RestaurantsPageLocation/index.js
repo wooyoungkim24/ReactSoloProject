@@ -15,6 +15,7 @@ function RestaurantsPageLocation() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [isBusinessLoaded, setIsBusinessLoaded] = useState(false);
     const [isUserLoaded, setIsUserLoaded] = useState(false)
+
     const restaurants = useSelector(state => {
         return state.businesses.closeBusinesses;
     })
@@ -25,13 +26,18 @@ function RestaurantsPageLocation() {
         return Math.floor(Math.random() * max);
     }
 
-    useEffect(() => {
+
+    useEffect(() =>{
         dispatch(sessionActions.restoreUser()).then(() => setIsUserLoaded(true))
+    },[dispatch])
+
+    useEffect(() => {
         dispatch(getBusinessesCity(location)).then(() => setIsBusinessLoaded(true));
-    }, [dispatch])
+    }, [dispatch, isUserLoaded])
 
     useEffect(() => {
         // console.log('my coordinates', coordinates)
+
         // dispatch(sessionActions.restoreUser()).then(() => setIsSession(true))
         dispatch(getReviews(Object.keys(restaurants))).then(() => setIsLoaded(true))
     }, [dispatch, isBusinessLoaded])
@@ -140,7 +146,7 @@ function RestaurantsPageLocation() {
                         // console.log('testing stuff', openTimeHour,openTimeMinute)
                         return (
                             <li key={bid} className="restaurant-component">
-                                <div onClick ={() => history.push(`/restaurants/${restaurant.id}`)}>
+                                <div onClick ={() => history.push(`/restaurants/single/${restaurant.id}`)}>
                                     <h2>{restaurant.title}</h2>
                                     <div className="avgRating">
                                         Average Rating: {ratingAvg} Number of Reviews: {reviewListRatings.length}

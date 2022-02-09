@@ -14,6 +14,7 @@ function RestaurantsPageCoordinates() {
     console.log('my coordinates', coordinates)
     const [isLoaded, setIsLoaded] = useState(false);
     const [isBusinessLoaded, setIsBusinessLoaded] = useState(false);
+    const [isUserLoaded, setIsUserLoaded] = useState(false)
     // const [isReview, setIsReview] = useState(false);
     // const [isBusiness, setIsBusiness] = useState(false);
     // const [isSession, setIsSession] = useState(false);
@@ -36,12 +37,16 @@ function RestaurantsPageCoordinates() {
     // })
     // console.log(testRestaurants)
     useEffect(() =>{
-        dispatch(sessionActions.restoreUser())
-        dispatch(getBusinessesLocation(coordinates)).then(() => setIsBusinessLoaded(true));
+        dispatch(sessionActions.restoreUser()).then(() => setIsUserLoaded(true))
     },[dispatch])
 
     useEffect(() => {
+        dispatch(getBusinessesLocation(coordinates)).then(() => setIsBusinessLoaded(true));
+    }, [dispatch, isUserLoaded])
+
+    useEffect(() => {
         // console.log('my coordinates', coordinates)
+
         // dispatch(sessionActions.restoreUser()).then(() => setIsSession(true))
         dispatch(getReviews(Object.keys(restaurants))).then(() => setIsLoaded(true))
     }, [dispatch, isBusinessLoaded])
@@ -161,7 +166,7 @@ function RestaurantsPageCoordinates() {
                         // console.log('testing stuff', openTimeHour,openTimeMinute)
                         return (
                             <li key={bid}  className="restaurant-component">
-                                <div onClick ={() => history.push(`/restaurants/${restaurant.id}`)}>
+                                <div onClick ={() => history.push(`/restaurants/single/${restaurant.id}`)}>
                                     <h2>{restaurant.title}</h2>
                                     <div className="avgRating">
                                         Average Rating: {ratingAvg} Number of Reviews: {reviewListRatings.length}

@@ -34,7 +34,24 @@ function RestaurantSpecific() {
 
     return (
         <div className="singleRestaurantContainer">
-            Hello
+            <div className="singlePageImage">
+
+            </div>
+            <div className="singleInternalNavBar">
+
+            </div>
+            <div className="singleNavigationBox">
+
+            </div>
+            <div className="singleHours">
+
+            </div>
+            <div className ="singleAmenities">
+
+            </div>
+            <div className="singleReviews">
+
+            </div>
 
         </div>
     )
