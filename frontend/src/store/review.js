@@ -26,8 +26,10 @@ export const getReviews = (id) => async dispatch =>{
     const idJoin = id.join("_")
     // console.log(idJoin)
     const res = await csrfFetch(`/api/review/${idJoin}`);
+
     if(res.ok){
         const reviews = await res.json();
+        console.log('what is wrong', reviews)
         console.log('my reviews',reviews['reviews'])
         // console.log(reviews['reviews'])
         dispatch(load(reviews['reviews']))

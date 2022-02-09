@@ -34,7 +34,7 @@ function RestaurantSpecific() {
 
     return (
         <div className="singleRestaurantContainer">
-            
+            Hello
 
         </div>
     )

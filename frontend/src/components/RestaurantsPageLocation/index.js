@@ -14,6 +14,7 @@ function RestaurantsPageLocation() {
     console.log('location', location)
     const [isLoaded, setIsLoaded] = useState(false);
     const [isBusinessLoaded, setIsBusinessLoaded] = useState(false);
+    const [isUserLoaded, setIsUserLoaded] = useState(false)
     const restaurants = useSelector(state => {
         return state.businesses.closeBusinesses;
     })
@@ -25,7 +26,7 @@ function RestaurantsPageLocation() {
     }
 
     useEffect(() => {
-        dispatch(sessionActions.restoreUser())
+        dispatch(sessionActions.restoreUser()).then(() => setIsUserLoaded(true))
         dispatch(getBusinessesCity(location)).then(() => setIsBusinessLoaded(true));
     }, [dispatch])
 
