@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, useHistory, useParams } from 'react-router-dom';
-
+import * as sessionActions from "../../store/session";
 import { getReviews } from "../../store/review"
 import { getBusinessesLocation, getCities, getBusinessesCity } from "../../store/business"
 
@@ -14,6 +14,7 @@ function RestaurantsPageLocation() {
     console.log('location', location)
     const [isLoaded, setIsLoaded] = useState(false);
     const [isBusinessLoaded, setIsBusinessLoaded] = useState(false);
+    const [isUserLoaded, setIsUserLoaded] = useState(false)
     const restaurants = useSelector(state => {
         return state.businesses.closeBusinesses;
     })
@@ -25,6 +26,7 @@ function RestaurantsPageLocation() {
     }
 
     useEffect(() => {
+        dispatch(sessionActions.restoreUser()).then(() => setIsUserLoaded(true))
         dispatch(getBusinessesCity(location)).then(() => setIsBusinessLoaded(true));
     }, [dispatch])
 
