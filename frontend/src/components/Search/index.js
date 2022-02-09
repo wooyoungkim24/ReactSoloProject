@@ -14,7 +14,7 @@ import AutoComplete from "../AutoComplete";
 
 function Search() {
     const dispatch = useDispatch();
-    
+
     // const [errorMessages, setErrorMessages] = useState({});
     const [coordinates, setCoordinates] = useState("");
     const [cities, setCities] = useState([]);
