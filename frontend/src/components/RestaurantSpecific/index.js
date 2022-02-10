@@ -4,15 +4,19 @@ import { NavLink, Route, useHistory, useParams } from 'react-router-dom';
 import * as sessionActions from "../../store/session";
 import { getBusiness, getBusinessAmenities } from "../../store/business"
 import "./index.css"
+import { getReviewsSingle } from '../../store/review';
 
 
 function RestaurantSpecific() {
     const dispatch = useDispatch();
     const { id } = useParams();
     const history = useHistory();
-    const [isUserLoaded, setIsUserLoaded] = useState(false)
-    const [isBusinessLoaded, setIsBusinessLoaded] = useState(false)
-    const [isAmenitiesLoaded, setIsAmenitiesLoaded] = useState(false)
+    // const [isUserLoaded, setIsUserLoaded] = useState(false)
+    // const [isBusinessLoaded, setIsBusinessLoaded] = useState(false)
+    // const [isAmenitiesLoaded, setIsAmenitiesLoaded] = useState(false)
+    // const [isReviewsLoaded, setIsReviewsLoaded] = useState(false)
+    const [isAllLoaded, setIsAllLoaded] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
     const [showMore, setShowMore] = useState(false)
 
     const user = useSelector(state => {
@@ -25,23 +29,34 @@ function RestaurantSpecific() {
     const amenities = useSelector(state => {
         return state.businesses.amenities
     })
+    const reviews = useSelector(state => {
+        return state.reviews.single
+    })
 
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
 
+    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    const d = new Date();
+    let day = d.getDay();
+    let correctedDay;
+    if(day ===0){
+        correctedDay = 6;
+    }else{
+        correctedDay = day -1;
+    }
+    let today = days[correctedDay]
+    let currTimeHour = d.getHours();
+    let currTimeMinute = d.getMinutes();
 
-    useEffect(() => {
-        dispatch(sessionActions.restoreUser()).then(() => setIsUserLoaded(true))
-    }, [dispatch])
 
-    useEffect(() => {
-        dispatch(getBusinessAmenities(id)).then(() => setIsAmenitiesLoaded(true))
-    }, [isUserLoaded])
-
-    useEffect(() => {
-        dispatch(getBusiness(id)).then(() => setIsBusinessLoaded(true))
-    }, [isAmenitiesLoaded])
+    useEffect( async() =>{
+        await dispatch(sessionActions.restoreUser())
+        await dispatch(getBusinessAmenities(id))
+        await dispatch(getReviewsSingle(id))
+        await dispatch(getBusiness(id)).then(() => setIsAllLoaded(true))
+    },[dispatch])
 
     let images;
     let address;
@@ -50,20 +65,145 @@ function RestaurantSpecific() {
     let hours;
     let mapsUrl;
     let description = "Come and Enjoy the Food!"
-    if (isBusinessLoaded) {
+    let ratings = [];
+    let reviewKeys;
+    let ratingSum;
+    let avgRating;
+    let avgRatingInt;
+    let avgRatingDec;
+    let ratingsLength;
+    let starDivs = (
+        <div>Loading</div>
+    )
+    let hoursToday;
+    let openTodayHour;
+    let openTodayMinute;
+    let closeTodayHour;
+    let closeTodayMinute;
+    let hoursTodayDiv;
+    let hoursTodayDivBottom;
+
+    if (isAllLoaded) {
 
         images = restaurant.imgs
         address = restaurant.address
         encode = encodeURIComponent(address)
         mapsQuery = `https://www.google.com/maps/embed/v1/place?q=${encode}&key=AIzaSyD1nYDZVEp2m6eIrrbFU-9Jc8X7tQUYAxI`
         mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encode}`
+
+
         hours = restaurant.hours
+        hoursToday = hours[correctedDay]
+        openTodayHour = parseInt(hoursToday.split(" - ")[0].split(" ")[0].split(":")[0])
+        openTodayMinute = parseInt(hoursToday.split(" - ")[0].split(" ")[0].split(":")[1])
+        closeTodayHour = parseInt(hoursToday.split(" - ")[1].split(" ")[0].split(":")[0])
+        closeTodayMinute = parseInt(hoursToday.split(" - ")[1].split(" ")[0].split(":")[1])
+        if(currTimeHour > openTodayHour && currTimeMinute> openTodayMinute && currTimeHour< closeTodayHour){
+            setIsOpen(true);
+        }
+
+        if(isOpen){
+            hoursTodayDiv = (
+                <div id ="headerHours">
+                    <div id="isOpen">
+                        Open
+                    </div>
+                    <div>
+                        {hoursToday}
+                    </div>
+                </div>
+            )
+        }else{
+            hoursTodayDiv = (
+                <div id ="headerHours">
+                    <div id="isClosed">
+                        Closed
+                    </div>
+                    <div>
+                        {hoursToday}
+                    </div>
+                </div>
+            )
+        }
+
+
+        if(isOpen){
+            hoursTodayDivBottom = (
+                <span id ="hoursBottomOpen">
+                    Open Now
+                </span>
+            )
+        }else{
+            hoursTodayDivBottom = (
+                <span id ="hoursBottomClosed">
+                    Closed Now
+                </span>
+            )
+        }
+
         if (restaurant.description) {
             description = restaurant.description;
         }
+        reviewKeys = Object.keys(reviews);
+        reviewKeys.forEach(ele => {
+            ratings.push(reviews[ele].rating)
+        })
+        ratingsLength = ratings.length
+        ratingSum = ratings.reduce((ele, accum) => {
+            return ele + accum;
+        })
+        avgRating = ratingSum / ratingsLength
+        avgRatingInt = parseInt(avgRating.toString().split(".")[0])
+        avgRatingDec = parseInt(avgRating.toString().split(".")[1])
+
+
+
+        //star rating stuff
+        starDivs = [];
+        for (let i = 0; i < avgRatingInt; i++) {
+            starDivs.push(
+                <div key={i} id="fullStar">
+                    <i className="fas fa-star fa-1x"></i>
+                </div>
+            )
+        }
+        if (avgRatingDec !== 0) {
+            starDivs.push(
+                <div key="halfKey" id="halfStar">
+                    <i className="fas fa-star fa-1x"></i>
+                </div>
+            )
+        }
+        if (starDivs.length > avgRatingInt) {
+            for (let i = avgRatingInt + 1; i < 5; i++) {
+                starDivs.push(
+                    <div key={i} id="emptyStar">
+                        <i className="fas fa-star fa-1x"></i>
+                    </div>
+                )
+            }
+        } else {
+            for (let i = avgRatingInt; i < 5; i++) {
+                starDivs.push(
+                    <div key={i} id="emptyStar">
+                        <i className="fas fa-star fa-1x"></i>
+                    </div>
+                )
+            }
+        }
+        //star rating stuff
     }
 
-    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
+
+
+
+
+
+
+
+
+
 
     // Amenities Variables
     let reservations = amenities.reservations;
@@ -305,7 +445,7 @@ function RestaurantSpecific() {
 
         <div className="singleRestaurantContainer">
 
-            {isBusinessLoaded &&
+            {isAllLoaded &&
                 <div className="loaded">
 
                     {/* Header Div */}
@@ -320,7 +460,39 @@ function RestaurantSpecific() {
                                 )
                             })}
                             <div className="headerInformation">
-                                <h1>Testing</h1>
+                                <div id="title">
+                                    <h1>{restaurant.title}</h1>
+                                </div>
+
+                                <div id="starRating">
+                                    <div id="starShapes">
+                                        {starDivs}&nbsp;&nbsp;&nbsp;{Object.keys(reviews).length}
+                                    </div>
+                                </div>
+
+                                <div id="headerCategories">
+                                    {restaurant.categories.map((ele, i) => {
+                                        if (i === restaurant.categories.length - 1) {
+                                            return (
+                                                <div key={i}>
+                                                    {ele}
+                                                </div>
+                                            )
+                                        } else {
+                                            return (
+                                                <div key={i}>
+                                                    {ele},&nbsp;
+                                                </div>
+                                            )
+                                        }
+
+                                    })}
+                                </div>
+
+                                <div id="headerHours">
+                                    {hoursTodayDiv}
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -361,9 +533,15 @@ function RestaurantSpecific() {
                             <div id="days">
                                 <ul>
                                     {hours.map((ele, i) => {
-                                        return (
-                                            <li key={i}>{days[i]}</li>
-                                        )
+                                        if(days[i] === today){
+                                            return (
+                                                <li id="today" key={i}>{days[i]}</li>
+                                            )
+                                        }else{
+                                            return (
+                                                <li id="notToday" key={i}>{days[i]}</li>
+                                            )
+                                        }
                                     })}
                                 </ul>
                             </div>
@@ -371,6 +549,11 @@ function RestaurantSpecific() {
                             <div id="hours">
                                 <ul>
                                     {hours.map((ele, i) => {
+                                        if(days[i] === today){
+                                            return (
+                                                <li key={i}>{ele}&nbsp;&nbsp;&nbsp;{hoursTodayDivBottom}</li>
+                                            )
+                                        }
                                         return (
                                             <li key={i}>{ele}</li>
                                         )
@@ -384,8 +567,8 @@ function RestaurantSpecific() {
                     <div className="singleAmenities">
                         <h2>Amenities</h2>
                         {amenitiesShow}
-                        {!showMore &&<button id="showMoreButton" type="button" onClick={() => setShowMore(true)}>Show More</button>}
-                        {showMore && <button id="showLessButton" type ="button" onClick={() => setShowMore(false)}>Show Less</button>}
+                        {!showMore && <button id="showMoreButton" type="button" onClick={() => setShowMore(true)}>Show More</button>}
+                        {showMore && <button id="showLessButton" type="button" onClick={() => setShowMore(false)}>Show Less</button>}
 
                     </div>
                     <div className="singleReviews">

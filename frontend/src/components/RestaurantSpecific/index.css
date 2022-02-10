@@ -19,13 +19,17 @@
     height: 100%;
     /* width: 100%; */
     flex:1;
+    filter: brightness(40%)
 
 }
 .headerInformation{
     position: absolute;
-    top: 300px;
-    left: 800px;
-
+    top: 285px;
+    left: 100px;
+    color: white;
+    font-family: 'Poppins','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size: 30px;
+    font-weight: 700;
 }
 body{
     margin: 0px;
@@ -90,4 +94,107 @@ body{
 #amenityIconDown{
     position:relative;
     top:5px;
+}
+
+/* Amenities */
+
+#title h1{
+    margin: 0px;
+}
+#starSquare{
+    color:green;
+}
+
+#fullStar{
+    background-color: rgb(255,82,61);
+    width: 35px;
+    height: 35px;
+    margin-right:5px;
+    border-radius: 5px;
+
+}
+#starShapes{
+    display: flex;
+    flex-direction: row;
+}
+i.fa-star{
+    position: absolute;
+    top:76px;
+
+}
+#halfStar{
+    background: linear-gradient(90deg, rgb(255,82,61) 50%, transparent 50%);
+    width: 35px;
+    height: 35px;
+    margin-right:5px;
+    border-radius: 5px;
+}
+#emptyStar{
+    background-color: transparent;
+    width: 35px;
+    height: 35px;
+    margin-right:5px;
+    border-radius: 5px;
+}
+#starRating{
+    margin-top: 5px;
+}
+#headerCategories{
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+#headerCategories div{
+    font-size: 20px;
+    font-weight: 700;
+}
+#headerHours{
+    margin-top: 3px;
+    display: flex;
+    flex-direction: row;
+    font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size: 20px;
+}
+
+#isOpen{
+    margin-right: 20px;
+}
+#isClosed{
+    margin-right: 20px;
+    color:rgba(224,7,7,1);
+    font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size: 20px;
+    font-weight: 550;
+}
+
+
+
+#days{
+    font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+#days *{
+    padding-bottom:3px;
+}
+#hours *{
+    padding-bottom: 3px;
+}
+
+#hours{
+    font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+}
+#today{
+    font-weight: 600;
+}
+#hoursBottomOpen{
+    color: green;
+    font-weight: 550;
+}
+#hoursBottomClosed{
+    color:rgba(224,7,7,1);
+    font-weight: 550;
 }
