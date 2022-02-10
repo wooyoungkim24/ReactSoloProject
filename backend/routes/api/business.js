@@ -141,5 +141,12 @@ router.get(
     })
 )
 
+router.get("/amenities/:id", asyncHandler(async(req,res) =>{
+    const id = req.params.id;
+    const businessAmenities = await Business.findByPk(id, {include: "Amenity"})
+    console.log('this is me im the test look at me',businessAmenities)
+    return res.json(businessAmenities)
+}))
+
 
 module.exports = router;

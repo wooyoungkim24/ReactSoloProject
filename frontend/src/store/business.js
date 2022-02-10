@@ -4,6 +4,7 @@ const LOADMULTI = 'closeBusinesses/LOAD';
 const LOAD_ONE = 'one/LOAD'
 const CITIES_LOAD = 'cites/load'
 const CLEAR = 'businesses/clear'
+const LOAD_AMEN = 'amenities/load'
 
 const load_city = (cities) => ({
     type: CITIES_LOAD,
@@ -24,6 +25,11 @@ const clear = () =>({
     type: CLEAR
 })
 
+const load_amen = amen =>({
+    type: LOAD_AMEN,
+    amen
+})
+
 export const clearBusinesses = clear();
 
 
@@ -42,6 +48,14 @@ export const getBusiness = (id) => async dispatch =>{
         const one = await res.json();
         dispatch(load_one(one))
 
+    }
+}
+export const getBusinessAmenities = (id) => async dispatch =>{
+    const res = await csrfFetch(`/api/business/amenities/${id}`);
+    if(res.ok){
+        const oneAmenity = await res.json();
+        // console.log('look at me',oneAmenity.Amenity)
+        dispatch(load_amen(oneAmenity))
     }
 }
 
@@ -76,7 +90,8 @@ export const getBusinessesCity = (city) => async dispatch => {
 const initialState = {
     closeBusinesses: {},
     single: {},
-    cities: []
+    cities: [],
+    amenities: {}
 }
 
 const businessReducer = (state = initialState, action) =>{
@@ -104,6 +119,12 @@ const businessReducer = (state = initialState, action) =>{
             return {
                 ...initialState
             }
+        case LOAD_AMEN:{
+            return{
+                ...state,
+                amenities: {...action.amen.Amenity}
+            }
+        }
         default:
             return state;
 

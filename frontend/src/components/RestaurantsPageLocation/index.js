@@ -39,8 +39,11 @@ function RestaurantsPageLocation() {
         // console.log('my coordinates', coordinates)
 
         // dispatch(sessionActions.restoreUser()).then(() => setIsSession(true))
-        dispatch(getReviews(Object.keys(restaurants))).then(() => setIsLoaded(true))
-    }, [dispatch, isBusinessLoaded])
+        if(isBusinessLoaded){
+            dispatch(getReviews(Object.keys(restaurants))).then(() => setIsLoaded(true))
+        }
+
+    }, [isBusinessLoaded])
 
     return (
         <div className="restaurants">

@@ -48,16 +48,16 @@ function RestaurantsPageCoordinates() {
         // console.log('my coordinates', coordinates)
 
         // dispatch(sessionActions.restoreUser()).then(() => setIsSession(true))
-        dispatch(getReviews(Object.keys(restaurants))).then(() => setIsLoaded(true))
+        if(isBusinessLoaded){
+            dispatch(getReviews(Object.keys(restaurants))).then(() => setIsLoaded(true))
+        }
     }, [dispatch, isBusinessLoaded])
 
     function getRandomInt(max) {
       return Math.floor(Math.random() * max);
     }
 
-    const handleClick = (id) =>{
-        history.push(`/restaurants/${id}`);
-    }
+
 
 
 
