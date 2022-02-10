@@ -7,6 +7,19 @@ const reviewValidations = require('../../validations/reviews');
 
 const router = express.Router();
 
+router.get(
+    "/single/:id",
+    asyncHandler(async(req,res) =>{
+        const id = req.params.id;
+        const reviews = await Review.findAll({where:{
+            businessId:id
+        }})
+        return res.json(reviews)
+    })
+)
+
+
+
 
 router.get(
     "/:businessIds",

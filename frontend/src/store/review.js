@@ -3,6 +3,7 @@ import { csrfFetch } from './csrf';
 const LOADMULTI = 'closeBusinessesReviews/LOAD';
 const LOAD_ONE = 'one/LOAD'
 const CITIES_LOAD = 'cites/load'
+const LOAD_ONE_REVIEW = 'oneReview/load'
 
 
 const load_city = (cities) => ({
@@ -16,7 +17,7 @@ const load = close => ({
 })
 
 const load_one = one => ({
-    type: LOAD_ONE,
+    type: LOAD_ONE_REVIEW,
     one
 })
 
@@ -34,6 +35,15 @@ export const getReviews = (id) => async dispatch =>{
         // console.log(reviews['reviews'])
         dispatch(load(reviews['reviews']))
         return reviews;
+    }
+}
+
+export const getReviewsSingle = (id) => async dispatch =>{
+    const res = await csrfFetch(`/api/review/single/${id}`)
+    if(res.ok){
+        const reviews = await res.json();
+        console.log('why my reivews wrong', reviews)
+        dispatch(load_one(reviews))
     }
 }
 
@@ -58,11 +68,16 @@ const reviewsReducer = (state = initialState, action) => {
                 ...state,
                 closeReviews: {...closeReviews}
             }
-        // case LOAD_ONE:
-        //     return{
-        //         ...state,
-        //         single: action.one
-        //     }
+        case LOAD_ONE_REVIEW:
+            const newSingle = {};
+            console.log('this is the action',action.one)
+            action.one.forEach(ele =>{
+                newSingle[ele.id] = ele
+            })
+            return{
+                ...state,
+                single: {...newSingle}
+            }
         // case CITIES_LOAD:
         //     return{
         //         ...state,
