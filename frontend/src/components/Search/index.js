@@ -61,7 +61,9 @@ function Search() {
                      value = {coordinates}
                      onChange = {updateCoordinates}
                      />
-                     <button type="submit">Search</button>
+                     <button type="submit">
+                        Go
+                     </button>
                 </form>
                 <AutoComplete names={cities}/>
             </div>

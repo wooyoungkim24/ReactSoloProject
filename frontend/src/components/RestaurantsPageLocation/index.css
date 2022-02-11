@@ -1,0 +1,52 @@
+.restaurants{
+    display: flex;
+    flex-direction: row;
+}
+.restaurant-component{
+    margin-left:30px;
+    font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+
+}
+.bigMap{
+    position: relative;
+
+}
+#map{
+    border-radius: 10px;
+}
+.reviewComponent{
+    overflow: hidden;
+    width: 90%;
+    height: 90px;
+    font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 15px;
+
+
+}
+#restaurant-component-image{
+    width: 250px;
+    height: 250px;
+    border-radius: 10px;
+}
+.restaurant-component-container{
+    display: flex;
+    flex-direction: row;
+    margin-left: 80px;
+    margin-right: 50px;
+    border: 2px solid rgb(235,235,235);
+    border-radius: 10px;
+    min-width: 850px;
+    cursor:pointer;
+    margin-bottom: 50px;
+}
+.onClickComponent h2{
+    margin-bottom: 5px;
+}
+.avgRating{
+    margin-bottom: 5px;
+}
+.categories{
+    margin-bottom: 5px;
+}

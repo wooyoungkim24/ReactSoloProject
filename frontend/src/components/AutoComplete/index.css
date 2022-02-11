@@ -1,19 +1,12 @@
 
 
-.auto {
-    font-weight: bold;
-    position: relative;
-  }
-
-  .auto > input {
+  /* .auto > input {
     padding: 5px 10px 5px 10px;
     border: 1px solid black;
     margin-top: 5px;
-  }
+  } */
 
-  .auto li {
-    cursor: pointer;
-  }
+
 
   /* .result-enter {
     opacity: 0.01;
@@ -32,13 +25,3 @@
     opacity: 0.01;
     transition: opacity 300ms ease-in;
   } */
-
-  .auto-dropdown {
-    position: absolute;
-    background-color: white;
-    left: 10px;
-    top: 35px;
-    padding: 10px;
-    border: 1px solid black;
-    list-style-type: none;
-  }

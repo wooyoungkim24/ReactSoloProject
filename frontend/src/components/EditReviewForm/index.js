@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useLayoutEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, useHistory, useParams } from 'react-router-dom';
 import * as sessionActions from "../../store/session";
@@ -41,25 +41,32 @@ function EditReviewForm() {
         return state.reviews.single
     })
 
-    useEffect( async() =>{
+    useEffect(async() =>{
         // dispatch(sessionActions.restoreUser())
         // dispatch(getBusiness(id))
         // dispatch(getReviewsSingle(id)).then(() => setReviewsLoaded(true))
-        await dispatch(sessionActions.restoreUser()).then(() =>dispatch(getBusiness(id))).then(() =>dispatch(getReviewsSingle(id))).then(()=> setReviewsLoaded(true))
+        await dispatch(sessionActions.restoreUser())
+            .then(() =>dispatch(getBusiness(id)))
+            .then(() =>dispatch(getReviewsSingle(id)))
+            .then(() =>setReviewsLoaded(true))
     },[dispatch])
 
-
+    const didMountRef = useRef(false);
     useEffect (() =>{
-        // console.log((review))
-        // let findPrevReviewArray = Object.values(review.single)
-        // let findPrevReview;
-        // findPrevReviewArray.forEach(ele =>{
-        //     if(ele.userId ===userId){
-        //         findPrevReview = ele;
-        //     }
-        // })
+        if(didMountRef.current){
+            let findPrevReviewArray = Object.values(review)
 
-        // setPrevReview(findPrevReview)
+            let findPrevReview;
+            findPrevReviewArray.forEach(ele =>{
+            if(ele.userId ===userId){
+                findPrevReview = ele;
+            }
+        })
+
+        setPrevReview(findPrevReview)
+        }
+        didMountRef.current = true;
+
     }, [reviewsLoaded])
 
     const handleSubmit = async (e) => {
@@ -78,14 +85,16 @@ function EditReviewForm() {
            history.goBack();
         }
     }
-
+    const ratingRef = useRef(null)
+    const titleRef = useRef(null)
+    const reviewTextRef = useRef(null)
 
     return (
         <div className="editReviewContainer">
             <div className="reviewEditRestaurantName">
                 <h1>{restaurant.title}</h1>
             </div>
-
+        {/* Dont know how to make it controlled so it can have default values *future* */}
             <form className="editReviewForm" onSubmit={handleSubmit}>
 
                 <select value ={rating} onChange={updateRating} id="starReviewRating">
