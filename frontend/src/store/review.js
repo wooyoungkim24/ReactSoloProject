@@ -40,10 +40,65 @@ export const getReviews = (id) => async dispatch =>{
 
 export const getReviewsSingle = (id) => async dispatch =>{
     const res = await csrfFetch(`/api/review/single/${id}`)
+    // console.log('why my reivews wrong', await res.json())
     if(res.ok){
         const reviews = await res.json();
-        console.log('why my reivews wrong', reviews)
+        // console.log('why my reivews wrong', reviews)
         dispatch(load_one(reviews))
+    }
+}
+
+
+export const createReview = (payload) => async dispatch => {
+    const { rating, title, reviewText, id, userId } = payload;
+    try {
+        const res = await csrfFetch(`/api/review`, {
+            method: 'POST',
+            body: JSON.stringify({
+                rating,
+                title,
+                reviewText,
+                businessId: id,
+                userId
+            }),
+        })
+        if (res.ok) {
+            const newReview = await res.json();
+            return newReview;
+        }
+    } catch (e) {
+        const error = await e.json();
+        return error;
+    }
+
+}
+
+export const deleteReview = (payload) => async dispatch =>{
+    const {id, userId} = payload;
+    const sendString = id.toString() + "_" + userId.toString();
+    const res = await csrfFetch(`/api/review/${sendString}`, {
+        method: 'DELETE'
+    })
+}
+
+export const editReview = (payload) => async dispatch =>{
+    const { rating, title, reviewText, id, userId } = payload;
+    const res = await csrfFetch(`/api/review`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            rating,
+            title,
+            reviewText,
+            businessId: parseInt(id),
+            userId
+        }),
+    })
+    // console.log('testing to here now', await res.json())
+    // console.log('whre is my test',res.ok)
+    if (res.ok) {
+        const updatedReview = await res.json();
+        // console.log(updatedReview)
+        return updatedReview;
     }
 }
 

@@ -198,3 +198,41 @@ i.fa-star{
     color:rgba(224,7,7,1);
     font-weight: 550;
 }
+
+
+
+#singleRatingStarBoxEmpty{
+    background-color:rgb(235,235,236);
+    width:20px;
+    height:20px;
+    border-radius: 2px;
+    margin-right: 2px;
+}
+#singleRatingStarBoxFill{
+    background-color:rgb(255,82,61);
+    width:20px;
+    height:20px;
+    border-radius: 2px;
+    margin-right: 2px;
+}
+#smallSingleStar{
+    color: white;
+    position: relative;
+    top: 1.65px;
+    left:.5px;
+}
+.ratingStars{
+    display: flex;
+    flex-direction: row;
+}
+.singleReviewComponent{
+    width: 850px;
+    margin-left: 300px;
+    margin-top: 50px;
+
+}
+.singleRevies{
+    margin-top:100px;
+    width: 850px;
+    margin-left: 300px;
+}

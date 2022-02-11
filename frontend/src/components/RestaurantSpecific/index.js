@@ -4,13 +4,16 @@ import { NavLink, Route, useHistory, useParams } from 'react-router-dom';
 import * as sessionActions from "../../store/session";
 import { getBusiness, getBusinessAmenities } from "../../store/business"
 import "./index.css"
-import { getReviewsSingle } from '../../store/review';
+import { getReviewsSingle, deleteReview } from '../../store/review';
+import SingleReview from '../SingleReview';
 
 
 function RestaurantSpecific() {
     const dispatch = useDispatch();
     const { id } = useParams();
     const history = useHistory();
+
+    const [reviewed, setReviewed] = useState(false)
     // const [isUserLoaded, setIsUserLoaded] = useState(false)
     // const [isBusinessLoaded, setIsBusinessLoaded] = useState(false)
     // const [isAmenitiesLoaded, setIsAmenitiesLoaded] = useState(false)
@@ -18,9 +21,10 @@ function RestaurantSpecific() {
     const [isAllLoaded, setIsAllLoaded] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
     const [showMore, setShowMore] = useState(false)
+    const [loggedIn, setLoggedIn] = useState(false)
 
-    const user = useSelector(state => {
-        return state.sesssion
+    const session = useSelector(state => {
+        return state.session
     })
 
     const restaurant = useSelector(state => {
@@ -32,10 +36,19 @@ function RestaurantSpecific() {
     const reviews = useSelector(state => {
         return state.reviews.single
     })
+    const userId = useSelector(state =>{
+        if(state.session.user){
+           return state.session.user.id
+        }
+        else{
+            return null;
+        }
+    })
 
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
+
 
     const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     const d = new Date();
@@ -57,6 +70,24 @@ function RestaurantSpecific() {
         await dispatch(getReviewsSingle(id))
         await dispatch(getBusiness(id)).then(() => setIsAllLoaded(true))
     },[dispatch])
+
+
+    useEffect( () =>{
+        let reviewedCheckArray = Object.values(reviews)
+        let checkReviewedIds= [];
+        reviewedCheckArray.forEach(ele=>{
+            checkReviewedIds.push(ele.User.id)
+        })
+        if(session.user){
+            if(checkReviewedIds.includes(session.user.id)){
+                setReviewed(true);
+            }
+            setLoggedIn(true);
+        }
+
+    }, [isAllLoaded])
+
+
 
     let images;
     let address;
@@ -83,7 +114,11 @@ function RestaurantSpecific() {
     let hoursTodayDiv;
     let hoursTodayDivBottom;
 
+
     if (isAllLoaded) {
+
+
+
 
         images = restaurant.imgs
         address = restaurant.address
@@ -498,9 +533,14 @@ function RestaurantSpecific() {
                     </div>
 
                     {/* The single page navbar div */}
-                    <div className="singleInternalNavBar">
-                        <button type="button">Write a Review</button>
-                    </div>
+                    {loggedIn && <div className="singleInternalNavBar">
+                        {!reviewed? <button type="button" onClick={() => history.push(`new/review/${id}`)}>Write a Review</button>:
+                        <>
+                            <button type="button" onClick={() => history.push(`edit/review/${id}`)}>Edit</button>
+                            <button type="button" onClick={() => dispatch(deleteReview({id, userId})).then(() => setReviewed(false))}>Delete</button>
+                        </> }
+
+                    </div>}
 
                     <div className="singleDescription">
                         {description}
@@ -572,7 +612,13 @@ function RestaurantSpecific() {
 
                     </div>
                     <div className="singleReviews">
-
+                        {Object.values(reviews).map((ele,i) =>{
+                            return (
+                                <div key = {i} className = "singleReviewComponent">
+                                    <SingleReview reviewData = {ele}/>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
             }

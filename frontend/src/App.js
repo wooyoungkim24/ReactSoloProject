@@ -11,6 +11,8 @@ import Home from  "./components/Home"
 import RestaurantsPageCoordinates from "./components/RestaurantsPageCoordinates";
 import RestaurantsPageLocation from "./components/RestaurantsPageLocation";
 import RestaurantSpecific from "./components/RestaurantSpecific";
+import CreateReviewForm from "./components/CreateReviewForm";
+import EditReviewForm from "./components/EditReviewForm";
 
 function App() {
 
@@ -40,9 +42,13 @@ function App() {
         <RestaurantSpecific/>
       </Route>
 
-      {/* <Route path="/review">
-        <ReviewFormPage/>
-      </Route> */}
+      <Route exact path="/restaurants/single/new/review/:id">
+        <CreateReviewForm/>
+      </Route>
+
+      <Route exact path = "/restaurants/single/edit/review/:id">
+        <EditReviewForm />
+      </Route>
     </>
   );
 }
