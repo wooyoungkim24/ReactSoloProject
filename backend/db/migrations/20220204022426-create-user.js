@@ -15,7 +15,7 @@ module.exports = {
       },
       businessOwner:{
         type: Sequelize.BOOLEAN,
-        allowNull: false,
+        // make this default *future*
       },
       email: {
         type: Sequelize.STRING(256),

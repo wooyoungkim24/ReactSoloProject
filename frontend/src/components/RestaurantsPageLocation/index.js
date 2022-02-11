@@ -55,7 +55,7 @@ function RestaurantsPageLocation() {
     const mapsQuery = `https://www.google.com/maps/embed/v1/place?q=${encode}&key=AIzaSyD1nYDZVEp2m6eIrrbFU-9Jc8X7tQUYAxI`
 
     return (
-        <>
+        <div className="restaurantsContainer">
             <Navigation isLoaded={isUserLoaded} />
             <div className="restaurants">
                 {isLoaded &&
@@ -201,7 +201,7 @@ function RestaurantsPageLocation() {
                         </div>
                     </>}
             </div>
-        </>
+        </div>
 
     )
 }

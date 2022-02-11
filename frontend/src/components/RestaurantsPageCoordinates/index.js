@@ -73,7 +73,7 @@ function RestaurantsPageCoordinates() {
 
 
     return (
-        <>
+        <div className="restaurantsContainer">
             <Navigation isLoaded={isUserLoaded} />
             <div className="restaurants">
                 {isLoaded &&
@@ -219,7 +219,7 @@ function RestaurantsPageCoordinates() {
                         </div>
                     </>}
             </div>
-        </>
+        </div>
 
     )
 

@@ -18,17 +18,18 @@
     height: 100%;
     /* width: 100%; */
     flex:1;
-    filter: brightness(40%)
+    filter: brightness(35%)
 
 }
 .headerInformation{
     position: absolute;
-    top: 285px;
-    left: 100px;
+    top: 350px;
+    left: 90px;
     color: white;
     font-family: 'Poppins','Helvetica Neue',Helvetica,Arial,sans-serif;
     font-size: 30px;
     font-weight: 700;
+    min-width: 1500px;
 }
 body{
     margin: 0px;
@@ -117,8 +118,9 @@ body{
     flex-direction: row;
 }
 i.fa-star{
-    position: absolute;
-    top:76px;
+    position: relative;
+    top: 2px;
+    left: .5px;
 
 }
 #halfStar{
@@ -230,8 +232,65 @@ i.fa-star{
     margin-top: 50px;
 
 }
-.singleRevies{
+.singleReviews{
     margin-top:100px;
     width: 850px;
     margin-left: 300px;
+}
+
+/* .loginButtonDiv{
+    position: relative;
+    top: 50px;
+    background-color: pink;
+    display:flex;
+    align-items: center;
+} */
+
+.restaurantsContainer .loginButtonDiv{
+    border-radius: 4px;
+    border: 1px solid rgb(200,201,202);
+    padding: 0;
+    margin-top: 30px;
+    display:flex;
+    align-items: center;
+    height:40px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 20px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.restaurantsContainer .signupButtonDiv{
+    border-radius: 4px;
+    border: 1px solid rgb(200,201,202);
+    padding: 0;
+    margin-top: 30px;
+    display:flex;
+    align-items: center;
+    height:40px;
+    cursor: pointer;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(224,7,7);
+    margin-right: 50px;
+}
+#loginLink, #signupLink{
+    text-decoration: none;
+    font-family: 'Poppins','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 700;
+}
+
+#signupLink{
+    color: white;
+}
+.restaurantsContainer #loginLink{
+    color:black;
+}
+
+.sessionLinksDiv{
+    display: flex;
+    flex-direction: row;
 }

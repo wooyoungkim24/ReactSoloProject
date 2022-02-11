@@ -21,8 +21,14 @@ function Navigation({ isLoaded }){
   } else {
     sessionLinks = (
       <>
-        <NavLink to="/login">Log in</NavLink>
-        <NavLink to="/signup">Sign Up</NavLink>
+        <div className="loginButtonDiv">
+            <NavLink id = "loginLink" to="/login">Log in</NavLink>
+        </div>
+
+        <div className="signupButtonDiv">
+            <NavLink id ="signupLink" to="/signup">Sign Up</NavLink>
+        </div>
+
       </>
     );
   }
@@ -36,7 +42,10 @@ function Navigation({ isLoaded }){
       </div>
 
       <Search />
-      {isLoaded && sessionLinks}
+      <div className="sessionLinksDiv">
+        {isLoaded && sessionLinks}
+      </div>
+
 
     </div>
   );

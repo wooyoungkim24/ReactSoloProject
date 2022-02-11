@@ -148,5 +148,10 @@ router.get("/amenities/:id", asyncHandler(async(req,res) =>{
     return res.json(businessAmenities)
 }))
 
+router.get("/", asyncHandler(async(req,res) =>{
+    const businesses = await Business.findAll();
+    return res.json(businesses)
+}))
+
 
 module.exports = router;
