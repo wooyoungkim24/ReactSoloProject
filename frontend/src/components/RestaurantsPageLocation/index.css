@@ -23,7 +23,6 @@
     font-weight: 400;
     margin-top: 15px;
 
-
 }
 #restaurant-component-image{
     width: 250px;
@@ -40,6 +39,10 @@
     min-width: 850px;
     cursor:pointer;
     margin-bottom: 50px;
+    transition: box-shadow 0.2s ease-in-out;
+}
+.restaurant-component-container:hover{
+    box-shadow: 0 0 12px rgba(142,142,142,0.3)
 }
 .onClickComponent h2{
     margin-bottom: 5px;

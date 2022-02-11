@@ -33,7 +33,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     businessOwner:{
       type: DataTypes.BOOLEAN,
-      allowNull:false
     }
   },
   {

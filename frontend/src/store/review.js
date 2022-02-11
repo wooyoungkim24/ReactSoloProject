@@ -4,7 +4,7 @@ const LOADMULTI = 'closeBusinessesReviews/LOAD';
 const LOAD_ONE = 'one/LOAD'
 const CITIES_LOAD = 'cites/load'
 const LOAD_ONE_REVIEW = 'oneReview/load'
-
+const LOAD_ALL = 'allReviews/load'
 
 const load_city = (cities) => ({
     type: CITIES_LOAD,
@@ -21,6 +21,18 @@ const load_one = one => ({
     one
 })
 
+const load_all = all =>({
+    type: LOAD_ALL,
+    all
+})
+
+export const getAllReviews = () => async dispatch =>{
+    const res = await csrfFetch('/api/review');
+    if(res.ok){
+        const reviews = await res.json();
+        dispatch(load_all(reviews));
+    }
+}
 
 
 export const getReviews = (id) => async dispatch =>{
@@ -104,7 +116,8 @@ export const editReview = (payload) => async dispatch =>{
 
 const initialState = {
     single: {},
-    closeReviews: {}
+    closeReviews: {},
+    all: []
 }
 const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -132,6 +145,11 @@ const reviewsReducer = (state = initialState, action) => {
             return{
                 ...state,
                 single: {...newSingle}
+            }
+        case LOAD_ALL:
+            return{
+                ...state,
+                all:[...action.all]
             }
         // case CITIES_LOAD:
         //     return{

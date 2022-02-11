@@ -5,10 +5,15 @@ const LOAD_ONE = 'one/LOAD'
 const CITIES_LOAD = 'cites/load'
 const CLEAR = 'businesses/clear'
 const LOAD_AMEN = 'amenities/load'
+const LOAD_ALL = 'allBusinesses/load'
 
 const load_city = (cities) => ({
     type: CITIES_LOAD,
     cities
+})
+const load_all = (all) =>({
+    type: LOAD_ALL,
+    all
 })
 
 const load = close =>({
@@ -87,11 +92,20 @@ export const getBusinessesCity = (city) => async dispatch => {
     }
 };
 
+export const getAllBusinesses = () => async dispatch =>{
+    const response = await csrfFetch('/api/business');
+    if(response.ok){
+        const businesses= await response.json();
+        dispatch(load_all(businesses));
+    }
+}
+
 const initialState = {
     closeBusinesses: {},
     single: {},
     cities: [],
-    amenities: {}
+    amenities: {},
+    all: []
 }
 
 const businessReducer = (state = initialState, action) =>{
@@ -118,6 +132,11 @@ const businessReducer = (state = initialState, action) =>{
         case CLEAR:
             return {
                 ...initialState
+            }
+        case LOAD_ALL:
+            return {
+                ...state,
+                all: [...action.all]
             }
         case LOAD_AMEN:{
             return{

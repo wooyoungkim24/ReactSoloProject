@@ -21,7 +21,10 @@ router.get(
     })
 )
 
-
+router.get('/', asyncHandler(async(req,res) =>{
+    const reviews= await Review.findAll({include: ["User", "Business"]});
+    return res.json(reviews)
+}))
 
 
 router.get(
