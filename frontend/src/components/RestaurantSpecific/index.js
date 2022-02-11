@@ -72,7 +72,7 @@ function RestaurantSpecific() {
     },[dispatch])
 
 
-    useEffect( () =>{
+    useEffect(() =>{
         let reviewedCheckArray = Object.values(reviews)
         let checkReviewedIds= [];
         reviewedCheckArray.forEach(ele=>{

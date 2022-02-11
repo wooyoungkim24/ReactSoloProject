@@ -3,8 +3,8 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { getBusinessesCity } from '../../store/business';
-import { useHistory } from 'react-router-dom';
-import './index.css';
+import { Redirect, useHistory } from 'react-router-dom';
+
 
 const AutoComplete = ({ names }) => {
   const [inputVal, setInputVal] = useState("")
@@ -47,7 +47,7 @@ const AutoComplete = ({ names }) => {
     else setShowList(false)
   }
 
-  const submit = async () => {
+  const submit = () => {
     // const payload = {
     //   city:inputVal
     // };
@@ -65,6 +65,7 @@ const AutoComplete = ({ names }) => {
     // if (foundBusinesses) {
       //   setErrorMessages({});
       history.push(`/restaurants/location/${inputVal}`);
+      // <Redirect to={`/restaurants/location/${inputVal}`}/>
     // }
   };
   const matchesFunc = () => {
@@ -128,7 +129,7 @@ const AutoComplete = ({ names }) => {
           </ul>
         )}
       </div>
-      <button type="button" onClick={submit}>Search</button>
+      <button type="button" onClick={submit}>Go</button>
     </section>
   );
 
