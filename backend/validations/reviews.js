@@ -26,7 +26,6 @@ exports.validateCreate = [
 ];
 
 exports.validateUpdate = [
-    id,
     title,
     reviewText,
     rating,
