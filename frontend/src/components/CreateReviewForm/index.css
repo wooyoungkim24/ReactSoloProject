@@ -22,3 +22,74 @@
     height: 400px;
     font-family: Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
 }
+
+.topOfCreateReviewForm{
+    display: flex;
+    justify-content: space-between;
+}
+#reviewTitleInput{
+    margin-top:10px;
+    margin-left: 10px;
+    height:40px;
+    padding-top:19px;
+    border:none;
+    border-bottom: 2px solid rgb(200,201,202);
+    font-family: 'Poppins','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size: 20px;
+    outline:none;
+}
+#reviewTitleInput::-webkit-input-placeholder{
+    font-family: 'Poppins','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size: 20px;
+}
+#reviewRatingInputDiv{
+    margin-top:12px;
+    margin-right: 10px;
+
+}
+#reviewRatingInputDiv select{
+    height:40px;
+    outline:none;
+    font-family: 'Poppins','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size: 15px;
+    font-weight: 525;
+    border: 2px solid rgb(200,201,202);
+    border-radius: 4px;
+}
+#reviewRatingInputDiv select > option{
+    font-family: 'Poppins','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size: 15px;
+    font-weight: 525;
+    border-radius: 20px;
+}
+.createReviewForm textarea{
+    margin-top: 20px;
+    margin-left:10px;
+    min-width: 625px;
+    max-width: 625px;
+    min-height: 310px;
+    max-height: 310px;
+    resize: none;
+    font-family: 'Poppins','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    padding-top:5px;
+    padding-left:5px;
+    outline: none;
+    /* border-radius: 5px; */
+    border:none;
+}
+
+.createReviewBody button{
+    margin-top: 20px;
+    width: 200px;
+    height: 40px;
+    font-family: 'Poppins','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: rgb(224,7,7);
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}

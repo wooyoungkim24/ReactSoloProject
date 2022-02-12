@@ -6,8 +6,13 @@ import { getBusiness, getBusinessAmenities } from "../../store/business"
 
 
 
-function SingleReview({reviewData}) {
+function SingleReview({reviewData, rerender}) {
     const [isUpdated, setIsUpdated] = useState(false)
+    const [reviewChange, setReviewChange] = useState(false)
+
+    useEffect(() =>{
+        setReviewChange(rerender)
+    },[])
 
     const rating = reviewData.rating
 
@@ -27,6 +32,7 @@ function SingleReview({reviewData}) {
         )
     }
 
+
     const reviewDateCreateUnparsed = reviewData.createdAt;
     const reviewDateCreate = reviewDateCreateUnparsed.split("T")[0].split("-")
     let shiftC = reviewDateCreate.shift()
@@ -39,10 +45,13 @@ function SingleReview({reviewData}) {
     reviewDateUpdate.push(shiftU)
     let finalUDate = reviewDateUpdate.join("/")
 
-
+    console.log(rerender)
     return (
         <>
             <div id="userReview">
+                <div id="forceRerender">
+                    {rerender}
+                </div>
                 <div id="username">
                     {reviewData.User.username}
                 </div>
