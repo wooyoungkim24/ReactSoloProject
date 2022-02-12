@@ -1,53 +1,24 @@
-/* .rate-area {
-    float:left;
-    border-style: none;
+.createReviewContainer .searchBar{
+    display:none;
 }
 
-.rate-area:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
-    clip:rect(0,0,0,0);
-}
-
-.rate-area:not(:checked) > label {
-    float: right;
-    width: .80em;
-    overflow: hidden;
-    white-space: nowrap;
-    cursor: pointer;
-    font-size: 40px;
-    line-height: 32px;
-    color: lightgrey;
-    margin-bottom: 10px !important;
-}
-
-.rate-area:not(:checked) > label:before {
-    content: '★';
-}
-
-.rate-area > input:checked ~ label {
-    color: #e8262d;
-    text-shadow: none;
-}
-
-.rate-area:not(:checked) > label:hover,
-.rate-area:not(:checked) > label:hover ~ label {
-    color: #e8262d;
+.createReviewBody{
+    display: flex;
+    flex-direction: column;
+    margin-left:200px;
+    margin-top: 50px;
 
 }
-
-.rate-area > input:checked + label:hover,
-.rate-area > input:checked + label:hover ~ label,
-.rate-area > input:checked ~ label:hover,
-.rate-area > input:checked ~ label:hover ~ label,
-.rate-area > label:hover ~ input:checked ~ label {
-    color: #e8262d;
-    text-shadow: none;
-
+.reviewCreateRestaurantName h1{
+    font-family: 'Poppins','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight:700;
+    color:rgb(45,46,47);
 }
 
-.rate-area > label:active {
-    position:relative;
-    top:0px;
-    left:0px;
-} */
+.createReviewFormContainer{
+    border: 2px solid rgb(200,201,202);
+    border-radius: 5px;
+    width: 650px;
+    height: 400px;
+    font-family: Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+}

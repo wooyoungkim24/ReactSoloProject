@@ -23,6 +23,7 @@ function RestaurantSpecific() {
     const [isOpen, setIsOpen] = useState(false)
     const [showMore, setShowMore] = useState(false)
     const [loggedIn, setLoggedIn] = useState(false)
+    const [userId, setUserId] = useState(null)
 
     const session = useSelector(state => {
         return state.session
@@ -91,7 +92,7 @@ function RestaurantSpecific() {
 
     // }, [reviewsLoaded])
     const didMountRef = useRef(0);
-    let userId;
+
     useEffect(() => {
         if (didMountRef.current === 1) {
             let reviewedCheckArray = Object.values(reviews)
@@ -103,7 +104,8 @@ function RestaurantSpecific() {
                 if (checkReviewedIds.includes(session.user.id)) {
                     setReviewed(true);
                 }
-                userId = session.user.id
+
+                setUserId(session.user.id)
                 setLoggedIn(true);
             }
         }
@@ -111,6 +113,8 @@ function RestaurantSpecific() {
 
 
     }, [isAllLoaded])
+
+
 
 
 
@@ -562,7 +566,10 @@ function RestaurantSpecific() {
                             {!reviewed ? <button type="button" onClick={() => history.push(`new/review/${id}`)}>Write a Review</button> :
                                 <>
                                     <button type="button" onClick={() => history.push(`edit/review/${id}`)}>Edit</button>
-                                    <button type="button" onClick={() => dispatch(deleteReview({ id, userId })).then(() => setReviewed(false))}>Delete</button>
+                                    <button type="button" onClick={async() =>{
+                                        await dispatch(deleteReview({ id, userId }))
+                                        setReviewed(false)
+                                        }}>Delete</button>
                                 </>}
 
                         </div>}
