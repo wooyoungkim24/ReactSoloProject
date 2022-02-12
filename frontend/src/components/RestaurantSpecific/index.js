@@ -506,7 +506,7 @@ function RestaurantSpecific() {
 
     return (
         <div className="restaurantsContainer">
-            <Navigation isLoaded = {isAllLoaded} />
+            <Navigation isLoaded={isAllLoaded} />
             <div className="singleRestaurantContainer">
 
                 {isAllLoaded &&
@@ -560,98 +560,134 @@ function RestaurantSpecific() {
                                 </div>
                             </div>
                         </div>
+                        <div className="bigBox">
+                            <div className="leftSideOfSingle">
+                                {/* The single page navbar div */}
+                                {loggedIn && <div className="singleInternalNavBar">
+                                    {!reviewed ? <button type="button" onClick={() => history.push(`new/review/${id}`)}>Write a Review</button> :
+                                        <>
+                                            <button type="button" onClick={() => history.push(`edit/review/${id}`)}>Edit Review</button>
+                                            <button type="button" id="deleteButton" onClick={async () => {
+                                                await dispatch(deleteReview({ id, userId }))
+                                                setReviewed(false)
+                                            }}>Delete Review</button>
+                                        </>}
 
-                        {/* The single page navbar div */}
-                        {loggedIn && <div className="singleInternalNavBar">
-                            {!reviewed ? <button type="button" onClick={() => history.push(`new/review/${id}`)}>Write a Review</button> :
-                                <>
-                                    <button type="button" onClick={() => history.push(`edit/review/${id}`)}>Edit</button>
-                                    <button type="button" onClick={async() =>{
-                                        await dispatch(deleteReview({ id, userId }))
-                                        setReviewed(false)
-                                        }}>Delete</button>
-                                </>}
+                                </div>}
 
-                        </div>}
-
-                        <div className="singleDescription">
-                            {description}
-                        </div>
-
-
-                        <div className="singleNavigationBox">
-                            <div className="webAddress">
-                                <a href={restaurant.webAddress}>{restaurant.webAddress}</a>
-                            </div>
-                            <div className="phoneNumber">
-                                {restaurant.phoneNumber}
-                            </div>
-                            <div className="address">
-                                <a href={mapsUrl}>{restaurant.address}</a>
-                            </div>
-
-                        </div>
-                        <div className="locationHours">
-                            <div id="locationDiv">
-                                <iframe id="map"
-                                    width="300" height="200" style={{ border: 0 }}
-                                    loading="lazy"
-                                    allowFullScreen
-                                    src={mapsQuery}>
-                                </iframe>
-                            </div>
-                            <div id='hoursDiv'>
-
-                                <div id="days">
-                                    <ul>
-                                        {hours.map((ele, i) => {
-                                            if (days[i] === today) {
-                                                return (
-                                                    <li id="today" key={i}>{days[i]}</li>
-                                                )
-                                            } else {
-                                                return (
-                                                    <li id="notToday" key={i}>{days[i]}</li>
-                                                )
-                                            }
-                                        })}
-                                    </ul>
+                                <div className="singleDescription">
+                                    {description}
                                 </div>
 
-                                <div id="hours">
-                                    <ul>
-                                        {hours.map((ele, i) => {
-                                            if (days[i] === today) {
-                                                return (
-                                                    <li key={i}>{ele}&nbsp;&nbsp;&nbsp;{hoursTodayDivBottom}</li>
-                                                )
-                                            }
-                                            return (
-                                                <li key={i}>{ele}</li>
-                                            )
-                                        })}
-                                    </ul>
-                                </div>
-                            </div>
 
-                        </div>
 
-                        <div className="singleAmenities">
-                            <h2>Amenities</h2>
-                            {amenitiesShow}
-                            {!showMore && <button id="showMoreButton" type="button" onClick={() => setShowMore(true)}>Show More</button>}
-                            {showMore && <button id="showLessButton" type="button" onClick={() => setShowMore(false)}>Show Less</button>}
 
-                        </div>
-                        <div className="singleReviews">
-                            {Object.values(reviews).map((ele, i) => {
-                                return (
-                                    <div key={i} className="singleReviewComponent">
-                                        <SingleReview reviewData={ele} />
+                                <div className="locationHours">
+                                    <h2>Location & Hours</h2>
+                                    <div className="locationHoursInfo">
+                                        <div id="locationDiv">
+                                            <div className="locationsMap">
+                                                <iframe id="map"
+                                                    width="500" height="400" style={{ border: 0 }}
+                                                    loading="lazy"
+                                                    allowFullScreen
+                                                    src={mapsQuery}>
+                                                </iframe>
+                                            </div>
+                                            <div className="locationAddress">
+                                                {restaurant.address}
+                                            </div>
+
+                                        </div>
+                                        <div id='hoursDiv'>
+
+                                            <div id="days">
+                                                <ul>
+                                                    {hours.map((ele, i) => {
+                                                        if (days[i] === today) {
+                                                            return (
+                                                                <li id="today" key={i}>{days[i]}</li>
+                                                            )
+                                                        } else {
+                                                            return (
+                                                                <li id="notToday" key={i}>{days[i]}</li>
+                                                            )
+                                                        }
+                                                    })}
+                                                </ul>
+                                            </div>
+
+                                            <div id="hours">
+
+                                                <ul>
+                                                    {hours.map((ele, i) => {
+                                                        if (days[i] === today) {
+                                                            return (
+                                                                <li key={i}>{ele}&nbsp;&nbsp;&nbsp;{hoursTodayDivBottom}</li>
+                                                            )
+                                                        }
+                                                        return (
+                                                            <li key={i}>{ele}</li>
+                                                        )
+                                                    })}
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
-                                )
-                            })}
+
+
+                                </div>
+
+                                <div className="singleAmenities">
+                                    <h2>Amenities</h2>
+                                    {amenitiesShow}
+                                    {!showMore && <button id="showMoreButton" type="button" onClick={() => setShowMore(true)}>Show More</button>}
+                                    {showMore && <button id="showLessButton" type="button" onClick={() => setShowMore(false)}>Show Less</button>}
+
+                                </div>
+                                <div className="singleReviews">
+                                    <h2>Reviews</h2>
+                                    {Object.values(reviews).map((ele, i) => {
+                                        return (
+                                            <div key={i} className="singleReviewComponent">
+                                                <SingleReview rerender={reviewed} reviewData={ele} />
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+
+                            <div className="singleNavigationBox">
+                                <div className="webAddress">
+                                    <div id="webAddress">
+                                         <a href={restaurant.webAddress}>{restaurant.webAddress}</a>
+                                    </div>
+                                    <div id="webAddressIcon">
+                                        <i class="fas fa-link fa-2x" onClick={() => history.push(restaurant.webAddress)}></i>
+                                    </div>
+
+                                </div>
+                                <div className="phoneNumber">
+                                    <div id="number">
+                                        {restaurant.phoneNumber}
+                                    </div>
+                                    <div id="numberIcon">
+                                        <i className="fas fa-phone-volume fa-2x"></i>
+                                    </div>
+
+                                </div>
+                                <div className="address">
+                                    <div id="address">
+                                        <a href={mapsUrl}>{restaurant.address}</a>
+                                    </div>
+                                    <div id="addressIcon">
+                                        <i className="fas fa-map-pin fa-2x" onClick={() => history.push(mapsUrl)}></i>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 }
 

@@ -103,20 +103,24 @@ function CreateReviewForm() {
                 </ul> */}
                         <div className="topOfCreateReviewForm">
                             <input
+                                id="reviewTitleInput"
                                 type="text"
                                 placeholder="Review Title"
                                 required
                                 value={title}
                                 onChange={updateTitle}
                             />
-                            <select value={rating} onChange={updateRating} id="starReviewRating">
-                                <option value="">--Rate this Restaurant!--</option>
-                                <option value={1}>Not Good</option>
-                                <option value={2}>Ok</option>
-                                <option value={3}>Good</option>
-                                <option value={4}>Great</option>
-                                <option value={5}>Fantastic</option>
-                            </select>
+                            <div id="reviewRatingInputDiv">
+                                <select value={rating} onChange={updateRating} id="starReviewRating">
+                                    <option value="">--Rate this Restaurant!--</option>
+                                    <option value={1}>1--Not Good</option>
+                                    <option value={2}>2--Ok</option>
+                                    <option value={3}>3--Good</option>
+                                    <option value={4}>4--Great</option>
+                                    <option value={5}>5--Fantastic</option>
+                                </select>
+                            </div>
+
                         </div>
 
                         <textarea

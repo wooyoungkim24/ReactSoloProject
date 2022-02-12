@@ -5,6 +5,7 @@ const LOAD_ONE = 'one/LOAD'
 const CITIES_LOAD = 'cites/load'
 const LOAD_ONE_REVIEW = 'oneReview/load'
 const LOAD_ALL = 'allReviews/load'
+const DELETE = "review/delete"
 
 const load_city = (cities) => ({
     type: CITIES_LOAD,
@@ -25,7 +26,10 @@ const load_all = all =>({
     type: LOAD_ALL,
     all
 })
-
+const delete_review = review =>({
+    type: DELETE,
+    review
+})
 export const getAllReviews = () => async dispatch =>{
     const res = await csrfFetch('/api/review');
     if(res.ok){
@@ -91,6 +95,10 @@ export const deleteReview = (payload) => async dispatch =>{
     const res = await csrfFetch(`/api/review/${sendString}`, {
         method: 'DELETE'
     })
+    if(res.ok){
+        const deleted_review = await res.json();
+        dispatch(delete_review(deleted_review))
+    }
 }
 
 export const editReview = (payload) => async dispatch =>{
@@ -150,6 +158,17 @@ const reviewsReducer = (state = initialState, action) => {
             return{
                 ...state,
                 all:[...action.all]
+            }
+        case DELETE:
+            console.log(state.single)
+            // console.log(action.review)
+            const deleteReviewId = action.review.id;
+            const newSingleAfterDelete = {...state.single}
+            delete newSingleAfterDelete[deleteReviewId]
+            console.log(Object.keys(newSingleAfterDelete))
+            return{
+                ...state,
+                single: {...newSingleAfterDelete}
             }
         // case CITIES_LOAD:
         //     return{

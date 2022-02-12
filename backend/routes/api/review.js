@@ -101,12 +101,20 @@ router.delete("/:ids", requireAuth,asyncHandler(async (req, res) =>{
     const businessId = parseInt(splitIds[0])
     const userId = parseInt(splitIds[1]);
 
-    let deletedReview = await Review.destroy({where:{
+    let deletedReview = await Review.findOne({where:{
         [Op.and]:[
             {userId:userId},
             {businessId:businessId}
         ]
     }})
+
+    await Review.destroy({where:{
+        [Op.and]:[
+            {userId:userId},
+            {businessId:businessId}
+        ]
+    }})
+
     return res.json(deletedReview);
 }));
 
