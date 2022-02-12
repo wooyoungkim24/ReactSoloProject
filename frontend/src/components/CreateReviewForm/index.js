@@ -4,17 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, useHistory, useParams } from 'react-router-dom';
 import * as sessionActions from "../../store/session";
 import "./index.css"
-import {createReview} from "../../store/review"
-import {getBusiness} from "../../store/business"
+import { createReview } from "../../store/review"
+import { getBusiness } from "../../store/business"
+import Navigation from '../Navigation';
 
 function CreateReviewForm() {
-    const {id} = useParams();
+    const { id } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
     const [title, setTitle] = useState("");
     const [reviewText, setReviewText] = useState('');
     const [rating, setRating] = useState(1);
-
+    const [isLoaded, setIsLoaded] = useState(false)
 
     const updateTitle = (e) => setTitle(e.target.value);
     const updateReviewText = (e) => setReviewText(e.target.value);
@@ -22,33 +23,33 @@ function CreateReviewForm() {
         console.log(e.target.value)
         setRating(e.target.value);
     }
-    const userId = useSelector(state =>{
-        if(state.session.user){
-           return state.session.user.id
+    const userId = useSelector(state => {
+        if (state.session.user) {
+            return state.session.user.id
         }
-        else{
+        else {
             return null;
         }
     })
-    const restaurant = useSelector(state =>{
+    const restaurant = useSelector(state => {
         return state.businesses.single
     })
 
 
-    useEffect( async() =>{
+    useEffect(async () => {
         await dispatch(sessionActions.restoreUser())
-        await dispatch(getBusiness(id))
-    },[dispatch])
+        await dispatch(getBusiness(id)).then(() => setIsLoaded(true))
+    }, [dispatch])
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const payload = {
-          rating,
-          title,
-          reviewText,
-          id,
+            rating,
+            title,
+            reviewText,
+            id,
             userId
         };
         let createdReview = await dispatch(createReview(payload));
@@ -56,7 +57,7 @@ function CreateReviewForm() {
             //   setErrorMessages({});
             history.goBack();
             //   hideForm();
-        }else{
+        } else {
             console.log(createdReview)
         }
 
@@ -68,7 +69,7 @@ function CreateReviewForm() {
         //   else setErrorMessages({ overall: error.toString().slice(7) })
         // }
 
-      };
+    };
 
 
 
@@ -79,13 +80,15 @@ function CreateReviewForm() {
 
     return (
         <div className="createReviewContainer">
-            <div className="reviewCreateRestaurantName">
-                <h1>{restaurant.title}</h1>
-            </div>
-
-            <form className="createReviewForm" onSubmit={handleSubmit}>
-                {/* star rating can't figure out *future* */}
-                {/* <ul className="rate-area">
+            <Navigation isLoaded={isLoaded} />
+            <div className="createReviewBody">
+                <div className="reviewCreateRestaurantName">
+                    <h1>{restaurant.title}</h1>
+                </div>
+                <div className="createReviewFormContainer">
+                    <form className="createReviewForm" >
+                        {/* star rating can't figure out *future* */}
+                        {/* <ul className="rate-area">
                     <input type="radio" id="5-star" value= "5"/>
                     <label htmlFor="5-star" title="Amazing">5 stars</label>
                     <input type="radio" id="4-star" value="4"/>
@@ -98,30 +101,37 @@ function CreateReviewForm() {
                     <label htmlFor="1-star" title="Bad">1 star</label>
 
                 </ul> */}
-                <select value ={rating} onChange={updateRating} id="starReviewRating">
-                    <option value="">--Rate this Restaurant!--</option>
-                    <option value={1}>Not Good</option>
-                    <option value={2}>Ok</option>
-                    <option value={3}>Good</option>
-                    <option value={4}>Great</option>
-                    <option value={5}>Fantastic</option>
-                </select>
+                        <div className="topOfCreateReviewForm">
+                            <input
+                                type="text"
+                                placeholder="Review Title"
+                                required
+                                value={title}
+                                onChange={updateTitle}
+                            />
+                            <select value={rating} onChange={updateRating} id="starReviewRating">
+                                <option value="">--Rate this Restaurant!--</option>
+                                <option value={1}>Not Good</option>
+                                <option value={2}>Ok</option>
+                                <option value={3}>Good</option>
+                                <option value={4}>Great</option>
+                                <option value={5}>Fantastic</option>
+                            </select>
+                        </div>
 
-                <input
-                    type="text"
-                    placeholder="Review Title"
-                    required
-                    value={title}
-                    onChange={updateTitle}
-                />
-                <textarea
-                    placeholder = "Enter your review here"
-                    required
-                    value = {reviewText}
-                    onChange={updateReviewText}
-                />
-                <button type="submit">Submit</button>
-            </form>
+                        <textarea
+                            placeholder="Enter your review here"
+                            required
+                            value={reviewText}
+                            onChange={updateReviewText}
+                        />
+
+                    </form>
+                </div>
+                <button type="submit" onClick={handleSubmit}>Post Review</button>
+
+            </div>
+
         </div>
     )
 }

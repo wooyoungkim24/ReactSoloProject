@@ -8,7 +8,7 @@
 }
 
 .restaurant-component-container:hover{
-    box-shadow: 0 0 12px rgba(142,142,142,0.3)
+    box-shadow: 0 0 15px rgba(142,142,142,0.5)
 }
 .bigMap{
     position: relative;

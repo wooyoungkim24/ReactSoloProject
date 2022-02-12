@@ -6,6 +6,7 @@ import * as sessionActions from "../../store/session";
 
 import {editReview, getReviewsSingle} from "../../store/review"
 import {getBusiness} from "../../store/business"
+import Navigation from '../Navigation';
 
 
 function EditReviewForm() {
@@ -91,6 +92,7 @@ function EditReviewForm() {
 
     return (
         <div className="editReviewContainer">
+            <NavLink isLoaded={reviewsLoaded}/>
             <div className="reviewEditRestaurantName">
                 <h1>{restaurant.title}</h1>
             </div>
