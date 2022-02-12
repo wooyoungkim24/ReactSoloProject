@@ -588,7 +588,7 @@ function RestaurantSpecific() {
                                         <div id="locationDiv">
                                             <div className="locationsMap">
                                                 <iframe id="map"
-                                                    width="500" height="400" style={{ border: 0 }}
+                                                    width="475" height="400" style={{ border: 0 }}
                                                     loading="lazy"
                                                     allowFullScreen
                                                     src={mapsQuery}>
