@@ -167,14 +167,18 @@ function RestaurantSpecific() {
         openTodayMinute = parseInt(hoursToday.split(" - ")[0].split(" ")[0].split(":")[1])
         closeTodayHour = parseInt(hoursToday.split(" - ")[1].split(" ")[0].split(":")[0])
         closeTodayMinute = parseInt(hoursToday.split(" - ")[1].split(" ")[0].split(":")[1])
-
+        console.log('time testing', currTimeHour, openTodayHour)
+        console.log(currTimeHour>openTodayHour)
         if ((currTimeHour > openTodayHour) && (currTimeMinute > openTodayMinute) && (currTimeHour < closeTodayHour)) {
 
             isOpen.current = true;
 
+        }else{
+            isOpen.current = false;
         }
 
-        if (isOpen) {
+        if (isOpen.current) {
+
             hoursTodayDiv = (
                 <div id="headerHours">
                     <div id="isOpen">
@@ -199,7 +203,7 @@ function RestaurantSpecific() {
         }
 
 
-        if (isOpen) {
+        if (isOpen.current) {
             hoursTodayDivBottom = (
                 <span id="hoursBottomOpen">
                     Open Now
