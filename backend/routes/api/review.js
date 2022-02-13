@@ -52,7 +52,7 @@ router.get(
 
 router.post(
     "/",
-    requireAuth,
+
     reviewValidations.validateCreate,
     asyncHandler(async(req,res) =>{
         const { Op } = require('sequelize');
@@ -76,7 +76,7 @@ router.post(
 
 router.put(
     '/',
-    requireAuth,
+
     reviewValidations.validateUpdate,
     asyncHandler(async (req, res) => {
         const { Op } = require('sequelize');
@@ -95,7 +95,7 @@ router.put(
     })
 );
 
-router.delete("/:ids", requireAuth,asyncHandler(async (req, res) =>{
+router.delete("/:ids",asyncHandler(async (req, res) =>{
     const { Op } = require('sequelize');
     const splitIds = req.params.ids.split("_");
     const businessId = parseInt(splitIds[0])
