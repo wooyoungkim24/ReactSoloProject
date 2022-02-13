@@ -4,67 +4,69 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, useHistory, useParams } from 'react-router-dom';
 import * as sessionActions from "../../store/session";
 
-import {editReview, getReviewsSingle} from "../../store/review"
-import {getBusiness} from "../../store/business"
+import { editReview, getReviewsSingle } from "../../store/review"
+import { getBusiness } from "../../store/business"
 import Navigation from '../Navigation';
 
 
 function EditReviewForm() {
 
-    const {id} = useParams();
+    const { id } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
     const [title, setTitle] = useState("");
     const [reviewText, setReviewText] = useState('');
-    const [rating, setRating] = useState(1);
+    const [rating, setRating] = useState("");
     const [prevReview, setPrevReview] = useState({})
     const [reviewsLoaded, setReviewsLoaded] = useState(false)
+    const [error, setError] = useState(false)
+    const [errorMessages, setErrorMessages] = useState([])
     const updateTitle = (e) => setTitle(e.target.value);
     const updateReviewText = (e) => setReviewText(e.target.value);
     const updateRating = (e) => {
         // console.log(e.target.value)
         setRating(e.target.value);
     }
-    const userId = useSelector(state =>{
-        if(state.session.user){
-           return state.session.user.id
+    const userId = useSelector(state => {
+        if (state.session.user) {
+            return state.session.user.id
         }
-        else{
+        else {
             return null;
         }
     })
-    const restaurant = useSelector(state =>{
+    const restaurant = useSelector(state => {
         return state.businesses.single
     })
 
 
-    const review = useSelector(state=>{
+    const review = useSelector(state => {
         return state.reviews.single
     })
 
-    useEffect(async() =>{
+    useEffect(async () => {
         // dispatch(sessionActions.restoreUser())
         // dispatch(getBusiness(id))
         // dispatch(getReviewsSingle(id)).then(() => setReviewsLoaded(true))
         await dispatch(sessionActions.restoreUser())
-            .then(() =>dispatch(getBusiness(id)))
-            .then(() =>dispatch(getReviewsSingle(id)))
-            .then(() =>setReviewsLoaded(true))
-    },[dispatch])
+            .then(() => dispatch(getBusiness(id)))
+            .then(() => dispatch(getReviewsSingle(id)))
+            .then(() => setReviewsLoaded(true))
+    }, [dispatch])
 
     const didMountRef = useRef(false);
-    useEffect (() =>{
-        if(didMountRef.current){
+    useEffect(() => {
+        if (didMountRef.current) {
             let findPrevReviewArray = Object.values(review)
 
             let findPrevReview;
-            findPrevReviewArray.forEach(ele =>{
-            if(ele.userId ===userId){
-                findPrevReview = ele;
-            }
-        })
+            findPrevReviewArray.forEach(ele => {
+                if (ele.userId === userId) {
+                    findPrevReview = ele;
+                }
+            })
 
-        setPrevReview(findPrevReview)
+            setPrevReview(findPrevReview)
         }
         didMountRef.current = true;
 
@@ -74,21 +76,40 @@ function EditReviewForm() {
         e.preventDefault();
 
         const payload = {
-          rating,
-          title,
-          reviewText,
-          id,
-          userId
+            rating,
+            title,
+            reviewText,
+            id,
+            userId
         };
         console.log('test to here', payload)
         let editedReview = await dispatch(editReview(payload));
-        if(editedReview){
-           history.goBack();
+        console.log('edited', editedReview)
+        if (!editedReview.errors) {
+            history.goBack();
+        }else{
+            let errors = editedReview.errors
+            setError(true);
+            setErrorMessages(errors)
         }
     }
-    const ratingRef = useRef(null)
-    const titleRef = useRef(null)
-    const reviewTextRef = useRef(null)
+    let errorMessageDiv = (
+        <>
+        </>
+    )
+    if (error) {
+        errorMessageDiv = (
+            <div id="errorReviewMessageDiv">
+                <ul>
+                    {errorMessages.map((ele, i) => {
+                        return (
+                            <li key={i}>{ele.msg}</li>
+                        )
+                    })}
+                </ul>
+            </div>
+        )
+    }
 
     return (
         // <div className="editReviewContainer">
@@ -130,10 +151,11 @@ function EditReviewForm() {
                 <div className="reviewCreateRestaurantName">
                     <h1>{restaurant.title}</h1>
                 </div>
-                <div className="createReviewFormContainer">
-                    <form className="createReviewForm" >
-                        {/* star rating can't figure out *future* */}
-                        {/* <ul className="rate-area">
+                <div className='reviewAndErrorContainer'>
+                    <div className="createReviewFormContainer">
+                        <form className="createReviewForm" >
+                            {/* star rating can't figure out *future* */}
+                            {/* <ul className="rate-area">
                     <input type="radio" id="5-star" value= "5"/>
                     <label htmlFor="5-star" title="Amazing">5 stars</label>
                     <input type="radio" id="4-star" value="4"/>
@@ -146,37 +168,40 @@ function EditReviewForm() {
                     <label htmlFor="1-star" title="Bad">1 star</label>
 
                 </ul> */}
-                        <div className="topOfCreateReviewForm">
-                            <input
-                                id="reviewTitleInput"
-                                type="text"
-                                placeholder="Review Title"
-                                required
-                                value={title}
-                                onChange={updateTitle}
-                            />
-                            <div id="reviewRatingInputDiv">
-                                <select value={rating} onChange={updateRating} id="starReviewRating">
-                                    <option value="">--Rate this Restaurant!--</option>
-                                    <option value={1}>1--Not Good</option>
-                                    <option value={2}>2--Ok</option>
-                                    <option value={3}>3--Good</option>
-                                    <option value={4}>4--Great</option>
-                                    <option value={5}>5--Fantastic</option>
-                                </select>
+                            <div className="topOfCreateReviewForm">
+                                <input
+                                    id="reviewTitleInput"
+                                    type="text"
+                                    placeholder="Review Title"
+                                    required
+                                    value={title}
+                                    onChange={updateTitle}
+                                />
+                                <div id="reviewRatingInputDiv">
+                                    <select value={rating} onChange={updateRating} id="starReviewRating">
+                                        <option value="">--Rate this Restaurant!--</option>
+                                        <option value={1}>1--Not Good</option>
+                                        <option value={2}>2--Ok</option>
+                                        <option value={3}>3--Good</option>
+                                        <option value={4}>4--Great</option>
+                                        <option value={5}>5--Fantastic</option>
+                                    </select>
+                                </div>
+
                             </div>
 
-                        </div>
+                            <textarea
+                                placeholder="Enter your review here"
+                                required
+                                value={reviewText}
+                                onChange={updateReviewText}
+                            />
 
-                        <textarea
-                            placeholder="Enter your review here"
-                            required
-                            value={reviewText}
-                            onChange={updateReviewText}
-                        />
-
-                    </form>
+                        </form>
+                    </div>
+                    {error && errorMessageDiv}
                 </div>
+
                 <button type="submit" onClick={handleSubmit}>Edit Review</button>
 
             </div>

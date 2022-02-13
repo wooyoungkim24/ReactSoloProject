@@ -22,12 +22,13 @@
     all:unset;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: top;
+    justify-content: end;
+    /* align-items: bottom; */
     max-width: 70%;
     min-width: 900px;
     margin: auto;
     z-index: 0;
+    /* height: 150px; */
 
 }
 
@@ -189,4 +190,37 @@
     border: none;
     top: 65px;
     border-radius: 5px;
+}
+.homeTop div.errorSearchDiv{
+    position: relative;
+    background-color: white;
+    font-weight:800;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 5px;
+    width: 370px;
+    top: 40px;
+
+}
+.homeTop div.searchAndError{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+.homeTop div.searchAndErrorAuto{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+.homeTop div.errorSearchLocDiv{
+    position: relative;
+    background-color: white;
+    font-weight:800;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 5px;
+    min-width:300px;
+    left:5px;
+    max-width: 50%;
+    bottom:15px;
 }

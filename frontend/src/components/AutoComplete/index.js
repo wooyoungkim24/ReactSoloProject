@@ -9,17 +9,21 @@ import { Redirect, useHistory } from 'react-router-dom';
 const AutoComplete = ({ names }) => {
   const [inputVal, setInputVal] = useState("")
   const [showList, setShowList] = useState(false)
+  const [isError, setIsError] = useState(false)
   const inputRef = React.useRef();
   const dispatch = useDispatch();
   const history = useHistory();
 
+
   useEffect(() => {
     if (showList) {
       document.addEventListener('click', handleOutsideClick);
+
     }
     return (() => {
       console.log("Cleaning up event listener from Autocomplete!");
       document.removeEventListener('click', handleOutsideClick);
+
     })
   }, [showList])
 
@@ -40,13 +44,22 @@ const AutoComplete = ({ names }) => {
       inputRef.current.focus();
     }
   }
-
+  // const handleOutsideErrorClick =() =>{
+  //   setIsError(false)
+  // }
   const handleOutsideClick = () => {
     // Leave dropdown visible as long as input is focused
     if (document.activeElement === inputRef.current) return;
-    else setShowList(false)
+    else {
+      setShowList(false)
+      setIsError(false)
+    }
   }
-
+  const errorSeachLoc = (
+    <div className="errorSearchLocDiv">
+      City not Available
+    </div>
+  )
   const submit = () => {
     // const payload = {
     //   city:inputVal
@@ -63,9 +76,13 @@ const AutoComplete = ({ names }) => {
     // }
     // console.log('founded', foundBusinesses)
     // if (foundBusinesses) {
-      //   setErrorMessages({});
+    //   setErrorMessages({});
+    if (!names.includes(inputVal)) {
+      setIsError(true)
+    } else {
       history.push(`/restaurants/location/${inputVal}`);
-      // <Redirect to={`/restaurants/location/${inputVal}`}/>
+    }
+    // <Redirect to={`/restaurants/location/${inputVal}`}/>
     // }
   };
   const matchesFunc = () => {
@@ -109,28 +126,37 @@ const AutoComplete = ({ names }) => {
   });
 
   return (
-    <section
-      className="autocomplete-section"
-      onClick={handleAutocompleteSectionClick}
-    >
-      <div className="auto">
-        <input
-          placeholder="Search..."
-          ref={inputRef}
-          onChange={handleInput}
-          value={inputVal}
-          onFocus={() => setShowList(true)}
-        />
-        {showList && (
-          <ul className="auto-dropdown">
-            <TransitionGroup>
-              {results}
-            </TransitionGroup>
-          </ul>
-        )}
-      </div>
-      <button type="button" onClick={submit}>Go</button>
-    </section>
+    <div className="searchAndErrorAuto">
+      <section
+        className="autocomplete-section"
+        onClick={handleAutocompleteSectionClick}
+      >
+        <div className="auto">
+          <input
+            type="search"
+            placeholder="Search..."
+            ref={inputRef}
+            onChange={handleInput}
+            value={inputVal}
+            required
+            onFocus={() => setShowList(true)}
+          />
+          {showList && (
+            <ul className="auto-dropdown">
+              <TransitionGroup>
+                {results}
+              </TransitionGroup>
+            </ul>
+          )}
+        </div>
+
+        <button type="button" onClick={submit}>Go</button>
+
+      </section>
+      {isError && errorSeachLoc}
+    </div>
+
+
   );
 
 }

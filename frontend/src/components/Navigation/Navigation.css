@@ -52,7 +52,7 @@
     flex-direction: row;
     width: 500px;
 }
-.searchBar *{
+.homeTop .searchBar *{
     flex-grow: 1;
 }
 .formSearchBar button{
@@ -109,6 +109,7 @@ section{
     list-style-type: none;
     font-family:Arial, Helvetica, sans-serif ;
     border-radius: 3px;
+
 }
 .nameLi{
     margin-bottom: 2.5px;
@@ -120,7 +121,9 @@ section{
 .auto li {
     cursor: pointer;
 }
-
+.auto{
+    width: 400px;
+}
 .auto input{
 
     height: 50px;

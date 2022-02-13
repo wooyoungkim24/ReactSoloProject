@@ -191,9 +191,9 @@ i.fa-star{
     font-size: 16px;
     font-weight: 300;
 }
-#today{
+/* #today{
     font-weight: 600;
-}
+} */
 #hoursBottomOpen{
     color: green;
     font-weight: 550;
@@ -372,10 +372,16 @@ i.fa-star{
     margin-left: 20px;
 }
 #hoursDiv li{
-    margin-bottom: 10px;
+    margin-bottom: 18px;
     font-family: 'Poppins','Helvetica Neue',Helvetica,Arial,sans-serif;
     font-size: 16px;
     font-weight: 550;
+}
+#hoursDiv #today{
+    font-size: 18px;
+    font-weight: 700;
+    border-bottom: 2px solid black;
+    padding-bottom: 0px;
 }
 .singleAmenities{
     margin-top: 20px;
@@ -430,6 +436,9 @@ i.fa-star{
     justify-content: space-around;
     min-width: 400px;
     margin-left:5px;
+}
+#isOpen{
+    color: green;
 }
 .singleNavigationBox a{
     text-decoration: none;

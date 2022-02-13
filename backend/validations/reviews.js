@@ -6,12 +6,16 @@ const id = check('id')
   .isInt({ min: 0 });
 const title = check('title')
   .notEmpty()
+  .withMessage("Missing Title")
 const reviewText = check('reviewText')
   .notEmpty()
+  .withMessage("Missing Review")
 const rating = check('rating')
   .notEmpty()
-  .isInt({ min: 1, max: 5})
-  .toInt();
+  .withMessage("Missing Rating")
+  // .isInt({ min: 1, max: 5})
+  // *future*
+  // .toInt();
 const businessId = check('businessId')
   .notEmpty()
 const userId = check('userId').notEmpty();
