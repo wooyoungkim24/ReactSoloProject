@@ -16,13 +16,15 @@ function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
-    await dispatch(sessionActions.login({ credential, password })).catch(
+    await dispatch(sessionActions.login({ credential, password }))
+    .then(() => history.goBack())
+    .catch(
       async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       }
     );
-    history.goBack();
+
   };
 
   return (

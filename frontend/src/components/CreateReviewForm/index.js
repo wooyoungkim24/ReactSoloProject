@@ -8,14 +8,17 @@ import { createReview } from "../../store/review"
 import { getBusiness } from "../../store/business"
 import Navigation from '../Navigation';
 
+
 function CreateReviewForm() {
     const { id } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
     const [title, setTitle] = useState("");
     const [reviewText, setReviewText] = useState('');
-    const [rating, setRating] = useState(1);
+    const [rating, setRating] = useState("");
     const [isLoaded, setIsLoaded] = useState(false)
+    const [error, setError] = useState(false)
+    const [errorMessages, setErrorMessages] = useState([])
 
     const updateTitle = (e) => setTitle(e.target.value);
     const updateReviewText = (e) => setReviewText(e.target.value);
@@ -42,6 +45,7 @@ function CreateReviewForm() {
     }, [dispatch])
 
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -53,12 +57,16 @@ function CreateReviewForm() {
             userId
         };
         let createdReview = await dispatch(createReview(payload));
-        if (!createdReview.message) {
+
+        if (!createdReview.errors) {
             //   setErrorMessages({});
             history.goBack();
             //   hideForm();
         } else {
             console.log(createdReview)
+            let errors = createdReview.errors
+            setError(true);
+            setErrorMessages(errors)
         }
 
 
@@ -72,8 +80,23 @@ function CreateReviewForm() {
     };
 
 
-
-
+    let errorMessageDiv = (
+        <>
+        </>
+    )
+    if (error) {
+        errorMessageDiv = (
+            <div id="errorReviewMessageDiv">
+                <ul>
+                    {errorMessages.map((ele, i) => {
+                        return (
+                            <li key={i}>{ele.msg}</li>
+                        )
+                    })}
+                </ul>
+            </div>
+        )
+    }
 
 
 
@@ -85,10 +108,11 @@ function CreateReviewForm() {
                 <div className="reviewCreateRestaurantName">
                     <h1>{restaurant.title}</h1>
                 </div>
-                <div className="createReviewFormContainer">
-                    <form className="createReviewForm" >
-                        {/* star rating can't figure out *future* */}
-                        {/* <ul className="rate-area">
+                <div className='reviewAndErrorContainer'>
+                    <div className="createReviewFormContainer">
+                        <form className="createReviewForm" >
+                            {/* star rating can't figure out *future* */}
+                            {/* <ul className="rate-area">
                     <input type="radio" id="5-star" value= "5"/>
                     <label htmlFor="5-star" title="Amazing">5 stars</label>
                     <input type="radio" id="4-star" value="4"/>
@@ -101,37 +125,41 @@ function CreateReviewForm() {
                     <label htmlFor="1-star" title="Bad">1 star</label>
 
                 </ul> */}
-                        <div className="topOfCreateReviewForm">
-                            <input
-                                id="reviewTitleInput"
-                                type="text"
-                                placeholder="Review Title"
-                                required
-                                value={title}
-                                onChange={updateTitle}
-                            />
-                            <div id="reviewRatingInputDiv">
-                                <select value={rating} onChange={updateRating} id="starReviewRating">
-                                    <option value="">--Rate this Restaurant!--</option>
-                                    <option value={1}>1--Not Good</option>
-                                    <option value={2}>2--Ok</option>
-                                    <option value={3}>3--Good</option>
-                                    <option value={4}>4--Great</option>
-                                    <option value={5}>5--Fantastic</option>
-                                </select>
+                            <div className="topOfCreateReviewForm">
+                                <input
+                                    id="reviewTitleInput"
+                                    type="text"
+                                    placeholder="Review Title"
+                                    required
+                                    value={title}
+                                    onChange={updateTitle}
+                                />
+                                <div id="reviewRatingInputDiv">
+                                    <select value={rating} onChange={updateRating} id="starReviewRating">
+                                        <option value={""}>--Rate this Restaurant!--</option>
+                                        <option value={1}>1--Not Good</option>
+                                        <option value={2}>2--Ok</option>
+                                        <option value={3}>3--Good</option>
+                                        <option value={4}>4--Great</option>
+                                        <option value={5}>5--Fantastic</option>
+                                    </select>
+                                </div>
+
                             </div>
 
-                        </div>
+                            <textarea
+                                placeholder="Enter your review here"
+                                required
+                                value={reviewText}
+                                onChange={updateReviewText}
+                            />
 
-                        <textarea
-                            placeholder="Enter your review here"
-                            required
-                            value={reviewText}
-                            onChange={updateReviewText}
-                        />
+                        </form>
 
-                    </form>
+                    </div>
+                    {error && errorMessageDiv}
                 </div>
+
                 <button type="submit" onClick={handleSubmit}>Post Review</button>
 
             </div>

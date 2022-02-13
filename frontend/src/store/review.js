@@ -103,23 +103,28 @@ export const deleteReview = (payload) => async dispatch =>{
 
 export const editReview = (payload) => async dispatch =>{
     const { rating, title, reviewText, id, userId } = payload;
-    const res = await csrfFetch(`/api/review`, {
-        method: 'PUT',
-        body: JSON.stringify({
-            rating,
-            title,
-            reviewText,
-            businessId: parseInt(id),
-            userId
-        }),
-    })
-    // console.log('testing to here now', await res.json())
-    // console.log('whre is my test',res.ok)
-    if (res.ok) {
-        const updatedReview = await res.json();
-        // console.log(updatedReview)
-        return updatedReview;
+    try{
+        const res = await csrfFetch(`/api/review`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                rating,
+                title,
+                reviewText,
+                businessId: parseInt(id),
+                userId
+            }),
+        })
+        // console.log('testing to here now', await res.json())
+        // console.log('whre is my test',res.ok)
+        if (res.ok) {
+            const updatedReview = await res.json();
+            return updatedReview;
+        }
+    }catch(e){
+        const error = await e.json();
+        return error;
     }
+
 }
 
 const initialState = {

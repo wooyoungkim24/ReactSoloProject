@@ -20,7 +20,9 @@ function RestaurantSpecific() {
     // const [isAmenitiesLoaded, setIsAmenitiesLoaded] = useState(false)
     // const [isReviewsLoaded, setIsReviewsLoaded] = useState(false)
     const [isAllLoaded, setIsAllLoaded] = useState(false)
-    const [isOpen, setIsOpen] = useState(false)
+    const [isAllLoadedPre, setIsAllLoadedPre] = useState(false);
+    // const [isOpen, setIsOpen] = useState(false)
+    const isOpen = useRef(false)
     const [showMore, setShowMore] = useState(false)
     const [loggedIn, setLoggedIn] = useState(false)
     const [userId, setUserId] = useState(null)
@@ -71,7 +73,7 @@ function RestaurantSpecific() {
         await dispatch(sessionActions.restoreUser())
         await dispatch(getBusinessAmenities(id))
         await dispatch(getReviewsSingle(id))
-        await dispatch(getBusiness(id)).then(() => setIsAllLoaded(true))
+        await dispatch(getBusiness(id)).then(() => setIsAllLoadedPre(true))
     }, [dispatch])
 
     // const didMountRef = useRef(false);
@@ -107,12 +109,13 @@ function RestaurantSpecific() {
 
                 setUserId(session.user.id)
                 setLoggedIn(true);
+                setIsAllLoaded(true)
             }
         }
         didMountRef.current += 1;
 
 
-    }, [isAllLoaded])
+    }, [isAllLoadedPre])
 
 
 
@@ -161,8 +164,11 @@ function RestaurantSpecific() {
         openTodayMinute = parseInt(hoursToday.split(" - ")[0].split(" ")[0].split(":")[1])
         closeTodayHour = parseInt(hoursToday.split(" - ")[1].split(" ")[0].split(":")[0])
         closeTodayMinute = parseInt(hoursToday.split(" - ")[1].split(" ")[0].split(":")[1])
-        if (currTimeHour > openTodayHour && currTimeMinute > openTodayMinute && currTimeHour < closeTodayHour) {
-            setIsOpen(true);
+
+        if ((currTimeHour > openTodayHour) && (currTimeMinute > openTodayMinute) && (currTimeHour < closeTodayHour)) {
+
+            isOpen.current = true;
+
         }
 
         if (isOpen) {
@@ -663,7 +669,7 @@ function RestaurantSpecific() {
                                          <a href={restaurant.webAddress}>{restaurant.webAddress}</a>
                                     </div>
                                     <div id="webAddressIcon">
-                                        <i class="fas fa-link fa-2x" onClick={() => history.push(restaurant.webAddress)}></i>
+                                        <i className="fas fa-link fa-2x" onClick={() => history.push(restaurant.webAddress)}></i>
                                     </div>
 
                                 </div>

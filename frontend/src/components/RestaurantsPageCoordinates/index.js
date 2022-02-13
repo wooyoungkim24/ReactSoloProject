@@ -8,6 +8,7 @@ import { getBusinessesLocation, getCities, getBusinessesCity } from "../../store
 import Navigation from '../Navigation';
 // import { clearBusinesses } from '../../store/business';
 // import { restoreUser } from '../../store/session';
+import "./index.css"
 
 function RestaurantsPageCoordinates() {
     const dispatch = useDispatch();

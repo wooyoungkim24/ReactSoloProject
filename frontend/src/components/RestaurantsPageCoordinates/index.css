@@ -25,8 +25,6 @@
     font-size: 16px;
     font-weight: 400;
     margin-top: 15px;
-
-
 }
 #restaurant-component-image{
     width: 250px;
@@ -53,4 +51,63 @@
 }
 .categories{
     margin-bottom: 5px;
+}
+.restaurantsContainer div.searchAndError{
+    display: flex;
+    flex-direction: row-reverse;
+    width: 900px;
+}
+.restaurantsContainer div.searchAndErrorAuto{
+    display: flex;
+    flex-direction: row;
+    width: 900px;
+}
+.restaurantsContainer div.errorSearchDiv{
+    position: relative;
+    background-color: white;
+    font-weight:800;
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+    height: 30px;
+    top:20px;
+    right: 10px;
+    background-color: rgba(255,0,0,0.7)
+}
+
+.restaurantsContainer .searchBar{
+    width: 1200px;
+}
+.restaurantsContainer form input{
+    width: 250px;
+}
+
+.restaurantsContainer form button{
+    width: 50px;
+}
+.restaurantsContainer .auto input{
+    width: 250px;
+}
+.restaurantsContainer .auto{
+    width: 250px;
+}
+.restaurantsContainer .auto ~button{
+    width: 50px;
+}
+.restaurantsContainer div.errorSearchLocDiv{
+    position: relative;
+    background-color: white;
+    font-weight:800;
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100px;
+    height: 30px;
+    top:20px;
+    left: 10px;
+    background-color: rgba(255,0,0,0.7)
+}
+.auto-dropdown:last-child{
+    padding-bottom:2px;
 }
