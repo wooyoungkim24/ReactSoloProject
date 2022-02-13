@@ -109,8 +109,11 @@ function RestaurantSpecific() {
 
                 setUserId(session.user.id)
                 setLoggedIn(true);
-                setIsAllLoaded(true)
+
+
             }
+            setIsAllLoaded(true)
+
         }
         didMountRef.current += 1;
 
