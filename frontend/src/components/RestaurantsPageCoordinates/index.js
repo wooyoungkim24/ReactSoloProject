@@ -142,7 +142,7 @@ function RestaurantsPageCoordinates() {
                                     }
 
 
-                                    if (currTimeHour < closeTimeHour && (currTimeHour > openTimeHour && currTimeMinute > openTimeMinute)) {
+                                    if (currTimeHour < closeTimeHour && (currTimeHour >= openTimeHour && currTimeMinute >= openTimeMinute)) {
                                         currOpen = (
                                             <>
                                                 Open until {closeTime}.
