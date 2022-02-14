@@ -21,6 +21,11 @@
     filter: brightness(35%)
 
 }
+#webAddress a{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden
+}
 .headerInformation{
     position: absolute;
     top: 350px;
