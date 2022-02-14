@@ -165,15 +165,16 @@ function RestaurantSpecific() {
         hoursToday = hours[correctedDay]
         openTodayHour = parseInt(hoursToday.split(" - ")[0].split(" ")[0].split(":")[0])
         openTodayMinute = parseInt(hoursToday.split(" - ")[0].split(" ")[0].split(":")[1])
-        closeTodayHour = parseInt(hoursToday.split(" - ")[1].split(" ")[0].split(":")[0])
+        closeTodayHour = parseInt(hoursToday.split(" - ")[1].split(" ")[0].split(":")[0]) +12
         closeTodayMinute = parseInt(hoursToday.split(" - ")[1].split(" ")[0].split(":")[1])
-        console.log('time testing', currTimeHour, openTodayHour)
-        console.log(currTimeHour>openTodayHour)
+        // console.log('time testing', currTimeHour, closeTodayHour)
+        // console.log(currTimeHour<closeTodayHour)
         if ((currTimeHour > openTodayHour) && (currTimeMinute > openTodayMinute) && (currTimeHour < closeTodayHour)) {
 
             isOpen.current = true;
 
-        }else{
+        }
+        else{
             isOpen.current = false;
         }
 

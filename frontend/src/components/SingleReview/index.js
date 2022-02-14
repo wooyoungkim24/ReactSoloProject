@@ -45,7 +45,7 @@ function SingleReview({reviewData, rerender}) {
     reviewDateUpdate.push(shiftU)
     let finalUDate = reviewDateUpdate.join("/")
 
-    console.log(rerender)
+    // console.log(rerender)
     return (
         <>
             <div id="userReview">

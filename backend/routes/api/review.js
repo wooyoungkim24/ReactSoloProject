@@ -32,7 +32,7 @@ router.get(
     asyncHandler(async(req,res) =>{
         const { Op } = require('sequelize');
         const ids = req.params.businessIds;
-        console.log('these are my ids',ids)
+        // console.log('these are my ids',ids)
         const split = ids.split("_");
         const splitNum = split.map(ele=>{
             return parseInt(ele)
@@ -82,14 +82,14 @@ router.put(
         const { Op } = require('sequelize');
 
         const {userId, businessId} = req.body;
-        console.log('testing params', userId, businessId)
+        // console.log('testing params', userId, businessId)
         const reviewUpdate = await Review.findOne({where:{
             [Op.and]:[
                 {userId: userId},
                 {businessId: businessId}
             ]
         }})
-        console.log('lookat me it sthe bug', reviewUpdate)
+        // console.log('lookat me it sthe bug', reviewUpdate)
         const reviewUpdated = await reviewUpdate.update(req.body)
         return res.json(reviewUpdated);
     })

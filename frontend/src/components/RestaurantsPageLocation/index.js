@@ -13,7 +13,7 @@ function RestaurantsPageLocation() {
     // console.log(useParams())
     // console.log('my coordinates', coordinates)
     const { location } = useParams();
-    console.log('location', location)
+    // console.log('location', location)
     const [isLoaded, setIsLoaded] = useState(false);
     const [isBusinessLoaded, setIsBusinessLoaded] = useState(false);
     const [isUserLoaded, setIsUserLoaded] = useState(false)
@@ -156,7 +156,7 @@ function RestaurantsPageLocation() {
                                 }
                                 const chooseReview = getRandomInt(reviewList.length)
                                 const chosenReview = reviewList[chooseReview]
-                                console.log('chosen review', chosenReview)
+                                // console.log('chosen review', chosenReview)
 
                                 // console.log('testing stuff', openTimeHour,openTimeMinute)
                                 return (

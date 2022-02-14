@@ -46,8 +46,8 @@ export const getReviews = (id) => async dispatch =>{
 
     if(res.ok){
         const reviews = await res.json();
-        console.log('what is wrong', reviews)
-        console.log('my reviews',reviews['reviews'])
+        // console.log('what is wrong', reviews)
+        // console.log('my reviews',reviews['reviews'])
         // console.log(reviews['reviews'])
         dispatch(load(reviews['reviews']))
         return reviews;
@@ -151,7 +151,7 @@ const reviewsReducer = (state = initialState, action) => {
             }
         case LOAD_ONE_REVIEW:
             const newSingle = {};
-            console.log('this is the action',action.one)
+            // console.log('this is the action',action.one)
             action.one.forEach(ele =>{
                 newSingle[ele.id] = ele
             })
@@ -165,12 +165,12 @@ const reviewsReducer = (state = initialState, action) => {
                 all:[...action.all]
             }
         case DELETE:
-            console.log(state.single)
+            // console.log(state.single)
             // console.log(action.review)
             const deleteReviewId = action.review.id;
             const newSingleAfterDelete = {...state.single}
             delete newSingleAfterDelete[deleteReviewId]
-            console.log(Object.keys(newSingleAfterDelete))
+            // console.log(Object.keys(newSingleAfterDelete))
             return{
                 ...state,
                 single: {...newSingleAfterDelete}

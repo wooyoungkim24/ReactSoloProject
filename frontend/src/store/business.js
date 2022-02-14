@@ -86,7 +86,7 @@ export const getBusinessesCity = (city) => async dispatch => {
 
     if (response.ok) {
         const close = await response.json();
-        console.log('close', close)
+        // console.log('close', close)
         dispatch(load(close));
         return close;
     }

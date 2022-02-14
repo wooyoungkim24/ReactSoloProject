@@ -23,7 +23,7 @@ function CreateReviewForm() {
     const updateTitle = (e) => setTitle(e.target.value);
     const updateReviewText = (e) => setReviewText(e.target.value);
     const updateRating = (e) => {
-        console.log(e.target.value)
+        // console.log(e.target.value)
         setRating(e.target.value);
     }
     const userId = useSelector(state => {
@@ -63,7 +63,7 @@ function CreateReviewForm() {
             history.goBack();
             //   hideForm();
         } else {
-            console.log(createdReview)
+            // console.log(createdReview)
             let errors = createdReview.errors
             setError(true);
             setErrorMessages(errors)

@@ -103,7 +103,7 @@ router.get(
         let city = req.params.city;
         // console.log('this is city', city)
         city = capitalize(city);
-        console.log('this is city', city)
+        // console.log('this is city', city)
         const cityData = await City.findOne({where: {
             name: city
         }})
@@ -144,7 +144,7 @@ router.get(
 router.get("/amenities/:id", asyncHandler(async(req,res) =>{
     const id = req.params.id;
     const businessAmenities = await Business.findByPk(id, {include: "Amenity"})
-    console.log('this is me im the test look at me',businessAmenities)
+    // console.log('this is me im the test look at me',businessAmenities)
     return res.json(businessAmenities)
 }))
 

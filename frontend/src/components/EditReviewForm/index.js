@@ -82,9 +82,9 @@ function EditReviewForm() {
             id,
             userId
         };
-        console.log('test to here', payload)
+        // console.log('test to here', payload)
         let editedReview = await dispatch(editReview(payload));
-        console.log('edited', editedReview)
+        // console.log('edited', editedReview)
         if (!editedReview.errors) {
             history.goBack();
         }else{

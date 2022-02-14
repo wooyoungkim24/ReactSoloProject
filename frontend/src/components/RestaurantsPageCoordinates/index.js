@@ -13,7 +13,7 @@ import "./index.css"
 function RestaurantsPageCoordinates() {
     const dispatch = useDispatch();
     const { coordinates } = useParams();
-    console.log('my coordinates', coordinates)
+    // console.log('my coordinates', coordinates)
     const [isLoaded, setIsLoaded] = useState(false);
     const [isBusinessLoaded, setIsBusinessLoaded] = useState(false);
     const [isUserLoaded, setIsUserLoaded] = useState(false)
@@ -175,7 +175,7 @@ function RestaurantsPageCoordinates() {
                                 }
                                 const chooseReview = getRandomInt(reviewList.length)
                                 const chosenReview = reviewList[chooseReview]
-                                console.log('chosen review', chosenReview)
+                                // console.log('chosen review', chosenReview)
 
                                 // console.log('testing stuff', openTimeHour,openTimeMinute)
                                 return (
