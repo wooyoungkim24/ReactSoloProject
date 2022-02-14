@@ -167,9 +167,9 @@ function RestaurantSpecific() {
         openTodayMinute = parseInt(hoursToday.split(" - ")[0].split(" ")[0].split(":")[1])
         closeTodayHour = parseInt(hoursToday.split(" - ")[1].split(" ")[0].split(":")[0]) +12
         closeTodayMinute = parseInt(hoursToday.split(" - ")[1].split(" ")[0].split(":")[1])
-        // console.log('time testing', currTimeHour, closeTodayHour)
-        // console.log(currTimeHour<closeTodayHour)
-        if ((currTimeHour > openTodayHour) && (currTimeMinute > openTodayMinute) && (currTimeHour < closeTodayHour)) {
+        console.log('time testing', currTimeHour, openTodayHour)
+        console.log(currTimeHour>openTodayHour)
+        if ((currTimeHour >= openTodayHour) && (currTimeMinute > openTodayMinute) && (currTimeHour < closeTodayHour)) {
 
             isOpen.current = true;
 
