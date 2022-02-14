@@ -164,11 +164,19 @@ function RestaurantSpecific() {
         hours = restaurant.hours
         hoursToday = hours[correctedDay]
         openTodayHour = parseInt(hoursToday.split(" - ")[0].split(" ")[0].split(":")[0])
+        // console.log(hoursToday)
         openTodayMinute = parseInt(hoursToday.split(" - ")[0].split(" ")[0].split(":")[1])
-        closeTodayHour = parseInt(hoursToday.split(" - ")[1].split(" ")[0].split(":")[0]) +12
+        closeTodayHour = parseInt(hoursToday.split(" - ")[1].split(" ")[0].split(":")[0])
         closeTodayMinute = parseInt(hoursToday.split(" - ")[1].split(" ")[0].split(":")[1])
-        console.log('time testing', currTimeHour, openTodayHour)
-        console.log(currTimeHour>openTodayHour)
+        if (hoursToday.split(" - ")[1].split(" ")[1] === "PM" || hoursToday.split(" - ")[1] === "12:00 AM") {
+            closeTodayHour += 12;
+        }
+        if (hoursToday.split(" - ")[0].split(" ")[1] === "PM") {
+            // console.log(hoursToday.split(" - ")[0].split(" ")[1] === "PM")
+            openTodayHour += 12;
+        }
+        // console.log('time testing', currTimeHour, openTodayHour)
+        // console.log(currTimeHour>openTodayHour)
         if ((currTimeHour >= openTodayHour) && (currTimeMinute >= openTodayMinute) && (currTimeHour < closeTodayHour)) {
 
             isOpen.current = true;

@@ -101,17 +101,18 @@ function RestaurantsPageLocation() {
 
                                     const closeTime = split[1];
                                     const openTime = split[0];
-
+                                    console.log(openTime)
 
                                     const closeTimeSplitPre = closeTime.split(" ")
                                     const openTimeSplitPre = openTime.split(" ")
 
                                     const closeTimeSplit = closeTimeSplitPre[0]
                                     const openTimeSplit = openTimeSplitPre[0];
-
+                                    console.log(openTimeSplit)
 
                                     let closeTimeHour = parseInt(closeTimeSplit.split(":")[0]);
                                     let openTimeHour = parseInt(openTimeSplit.split(":")[0]);
+                                    console.log('awdfsafdsadfsad', openTimeHour)
                                     const closeTimeMinute = parseInt(closeTimeSplit.split(":")[1]);
                                     const openTimeMinute = parseInt(openTimeSplit.split(":")[1]);
 
@@ -121,8 +122,8 @@ function RestaurantsPageLocation() {
                                     if (openTimeSplitPre[1] === "PM") {
                                         openTimeHour += 12;
                                     }
-
-
+                                    console.log(currTimeHour >= openTimeHour)
+                                    console.log(currTimeHour, openTimeHour)
                                     if (currTimeHour < closeTimeHour && (currTimeHour >= openTimeHour && currTimeMinute >= openTimeMinute)) {
                                         currOpen = (
                                             <>
