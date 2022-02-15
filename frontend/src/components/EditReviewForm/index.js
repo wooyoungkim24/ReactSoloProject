@@ -21,6 +21,9 @@ function EditReviewForm() {
     const [reviewsLoaded, setReviewsLoaded] = useState(false)
     const [error, setError] = useState(false)
     const [errorMessages, setErrorMessages] = useState([])
+    const [oldReview, setOldReview] = useState({})
+
+
     const updateTitle = (e) => setTitle(e.target.value);
     const updateReviewText = (e) => setReviewText(e.target.value);
     const updateRating = (e) => {
@@ -65,6 +68,15 @@ function EditReviewForm() {
                     findPrevReview = ele;
                 }
             })
+            for(let i in review){
+                let ele = review[i];
+                if(ele.userId === userId){
+                    setOldReview(ele);
+                }
+                setRating(oldReview.rating)
+                setReviewText(oldReview.reviewText)
+                setTitle(oldReview.title)
+            }
 
             setPrevReview(findPrevReview)
         }
@@ -176,6 +188,7 @@ function EditReviewForm() {
                                     required
                                     value={title}
                                     onChange={updateTitle}
+
                                 />
                                 <div id="reviewRatingInputDiv">
                                     <select value={rating} onChange={updateRating} id="starReviewRating">
