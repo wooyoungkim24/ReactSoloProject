@@ -68,15 +68,19 @@ function EditReviewForm() {
                     findPrevReview = ele;
                 }
             })
+            // console.log(review)
             for(let i in review){
                 let ele = review[i];
+
                 if(ele.userId === userId){
-                    setOldReview(ele);
+                    setRating(ele.rating)
+                    setReviewText(ele.reviewText)
+                    setTitle(ele.title)
                 }
-                setRating(oldReview.rating)
-                setReviewText(oldReview.reviewText)
-                setTitle(oldReview.title)
+
+
             }
+
 
             setPrevReview(findPrevReview)
         }
